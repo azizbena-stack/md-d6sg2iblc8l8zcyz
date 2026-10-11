@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sunday Music</title>
+<meta name="theme-color" content="#ff6a2b">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500;1,9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff6e9; --card:#fffdf8; --ink:#2a1608; --mute:#8a6a55; --line:#f0dcc4;
+  --sun:#ffd34d; --orange:#ff6a2b; --terra:#c8431a; --sky:#7cc4e8; --palm:#2f7d5b;
+  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+a{color:inherit}
+.demo{background:var(--ink);color:var(--sun);text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px}
+main{max-width:560px;margin:0 auto;padding:0 16px}
+section{display:none;padding-top:20px}
+section.on{display:block;animation:rise .35s ease}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1,h2,h3{font-family:var(--serif);font-weight:800;line-height:1.05}
+h2{font-size:30px;margin:6px 0 14px}
+h2 em{font-weight:500;color:var(--orange)}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:99px;padding:12px 18px;font:800 14px var(--sans);background:var(--ink);color:var(--bg);text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* Accueil */
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:28px 22px 24px;color:#fff8ec;
+  background:linear-gradient(180deg,#7cc4e8 0%,#ffb36b 55%,#ff6a2b 100%)}
+.hero .sunball{position:absolute;width:220px;height:220px;border-radius:50%;right:-50px;top:-40px;
+  background:radial-gradient(circle,#fff3b0 0%,var(--sun) 45%,rgba(255,211,77,0) 70%);animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.08)}}
+.hero h1{position:relative;font-size:56px;letter-spacing:-.02em}
+.hero h1 i{font-weight:500}
+.hero p{position:relative;font-family:var(--serif);font-style:italic;font-size:20px;margin-top:4px}
+.countdown{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:22px}
+.countdown div{background:rgba(42,22,8,.22);backdrop-filter:blur(6px);border-radius:14px;padding:10px 4px;text-align:center}
+.countdown b{display:block;font:800 26px var(--serif)}
+.countdown span{font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.hero small{position:relative;display:block;margin-top:10px;font-size:12px;opacity:.9}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.stats .card{padding:14px 10px;text-align:center}
+.stats b{display:block;font:800 24px var(--serif);color:var(--orange)}
+.stats span{font-size:11px;color:var(--mute)}
+.next{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.next .date{flex:none;width:64px;height:64px;border-radius:16px;background:var(--sun);display:grid;place-items:center;font:800 13px var(--serif);text-align:center;line-height:1.1}
+.next p{font-size:13px;color:var(--mute)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Éditions + passeport */
+.passport{background:var(--ink);color:var(--bg);border-radius:22px;padding:18px;margin-bottom:18px}
+.passport .lvl{font:800 26px var(--serif);color:var(--sun)}
+.bar{height:8px;border-radius:9px;background:rgba(255,255,255,.15);margin:12px 0 6px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--orange));transition:width .4s}
+.passport small{opacity:.75;font-size:12px}
+.timeline{position:relative;padding-left:26px}
+.timeline:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(var(--orange) 0 6px,transparent 6px 12px)}
+.ed{position:relative;margin-bottom:14px}
+.ed:before{content:attr(data-ico);position:absolute;left:-30px;top:14px;width:22px;height:22px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:13px}
+.ed .when{font-size:12px;font-weight:800;color:var(--terra);text-transform:uppercase;letter-spacing:.06em}
+.ed h3{font-size:21px;margin:2px 0 4px}
+.ed p{font-size:13px;color:var(--mute)}
+.ed .who{font-size:13px;margin-top:6px}
+.stamp{margin-top:10px;border:1.5px dashed var(--line);background:none;border-radius:99px;padding:7px 14px;font:800 12px var(--sans);color:var(--mute);cursor:pointer}
+.stamp[aria-pressed=true]{border:1.5px solid var(--palm);background:var(--palm);color:#fff}
+
+/* Line-up */
+.search{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:12px 16px;font:15px var(--sans);margin-bottom:12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:6px;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--ink);background:none;border-radius:99px;padding:7px 14px;font:800 12px var(--sans);cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--bg)}
+.artists{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.artist{display:block;text-decoration:none;border-radius:18px;padding:14px;min-height:118px;position:relative;overflow:hidden;color:#fff8ec}
+.artist b{font:800 19px var(--serif);display:block;line-height:1.1}
+.artist span{font-size:11px;opacity:.9;display:block;margin-top:6px}
+.artist.head{grid-column:span 2;min-height:150px}
+.artist.head b{font-size:30px}
+.artist:after{content:"↗";position:absolute;right:12px;bottom:10px;font-weight:800}
+
+/* Moments */
+.moments{columns:2;column-gap:10px}
+.mo{break-inside:avoid;display:block;text-decoration:none;margin-bottom:10px;border-radius:18px;padding:14px;color:#fff8ec}
+.mo .tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
+.mo p{font-family:var(--serif);font-size:16px;line-height:1.25;margin-top:6px}
+.mo small{display:block;margin-top:10px;font-size:11px;opacity:.85}
+.empty{color:var(--mute);text-align:center;padding:30px 0}
+
+/* Tab bar */
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));display:flex;gap:4px;
+  background:var(--ink);border-radius:99px;padding:6px;box-shadow:0 10px 30px rgba(42,22,8,.25);z-index:5}
+nav button{border:0;background:none;color:var(--bg);font:800 12px var(--sans);padding:10px 14px;border-radius:99px;cursor:pointer;opacity:.7;white-space:nowrap}
+nav button.on{background:var(--sun);color:var(--ink);opacity:1}
+footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
+</style>
+</head>
+<body>
+<div class="demo">Démo · maquette non officielle</div>
+<main>
+
+<section id="home" class="on">
+  <div class="hero">
+    <div class="sunball"></div>
+    <h1>Sunday<br><i>Music</i></h1>
+    <p>Sunday is not a day off.</p>
+    <div class="countdown" id="cd"></div>
+    <small>avant dimanche, 13 h</small>
+  </div>
+  <div class="stats">
+    <div class="card"><b>72,9 k</b><span>abonnés</span></div>
+    <div class="card"><b>15 000</b><span>à l'aéroport avec ANOTR</span></div>
+    <div class="card"><b>Sold out</b><span>chaque édition</span></div>
+  </div>
+  <div class="card next">
+    <div class="date">Bientôt</div>
+    <div>
+      <div class="kicker">Prochaine édition</div>
+      <h3>Clos de Provence</h3>
+      <p>Date et line-up à venir. La billetterie ouvre d'abord aux pré-inscrits, sur le lien en bio Instagram.</p>
+    </div>
+  </div>
+  <div class="row">
+    <a class="btn" href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">Instagram ↗</a>
+    <a class="btn ghost" href="https://linktr.ee/sundaymusic" target="_blank" rel="noopener">Tickets &amp; playlist ↗</a>
+    <a class="btn ghost" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Store ↗</a>
+  </div>
+</section>
+
+<section id="editions">
+  <div class="kicker">De la Tour Eiffel au tarmac</div>
+  <h2>Nos <em>dimanches</em></h2>
+  <div class="passport">
+    <div class="kicker" style="color:var(--sun)">Mon passeport Sunday</div>
+    <div class="lvl" id="lvl"></div>
+    <div class="bar"><i id="barfill"></i></div>
+    <small id="lvlhint"></small>
+  </div>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<section id="lineup">
+  <div class="kicker">Ils ont joué chez nous</div>
+  <h2>Line-<em>up</em></h2>
+  <input class="search" id="q" type="search" placeholder="Chercher un artiste…" aria-label="Chercher un artiste">
+  <div class="artists" id="artists"></div>
+</section>
+
+<section id="moments">
+  <div class="kicker">Depuis @sundaymusic.ofc</div>
+  <h2>Mo<em>ments</em></h2>
+  <div class="chips" id="places"></div>
+  <div class="moments" id="feed"></div>
+</section>
+
+<footer>Données reprises du compte Instagram public @sundaymusic.ofc · octobre 2026</footer>
+</main>
+
+<nav>
+  <button data-tab="home" class="on">Accueil</button>
+  <button data-tab="editions">Éditions</button>
+  <button data-tab="lineup">Line-up</button>
+  <button data-tab="moments">Moments</button>
+</nav>
+
+<script>
+const IG = 'https://www.instagram.com/';
+
+// Éditions, de la plus récente à la plus ancienne
+const EDITIONS = [
+  {id:'airport26', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
+   text:'15 000 personnes sur le tarmac, de 13 h à 1 h. Le plus gros show de l\'année.',
+   who:['ANOTR','AMOR','Silvie Loto','ALCI','Soubeiran','Casa Mata']},
+  {id:'lunel26', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
+   text:'Retour à la maison pour 12 h de show. Plus de 8 000 pré-inscrits.', who:['Mochakk']},
+  {id:'nimes26', ico:'🎻', when:'Printemps 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
+   text:'Premier show orchestral de Black Coffee en Europe. 14 000 danseurs.', who:['Black Coffee']},
+  {id:'dune26', ico:'🌞', when:'5 avr. 2026', title:'La Dune · 4ᵉ édition', place:'Club',
+   text:'Le club ouvert en pleine journée : club, patio et rooftop Terrazza.', who:[]},
+  {id:'origins26', ico:'🏠', when:'Début 2026', title:'Origins by Sunday', place:'Club',
+   text:'Retour aux soirées en petit comité des débuts. Sold out.', who:[]},
+  {id:'dec25', ico:'❤️‍🔥', when:'Déc. 2025', title:'Dernier dimanche de 2025', place:'Club',
+   text:'La soirée de clôture d\'une année folle.', who:[]},
+  {id:'airport25', ico:'✈️', when:'Sept. 2025', title:'Aéroport de Montpellier', place:'Aéroport',
+   text:'12 000 personnes, sold out. Tipi Stage et première scène AMOR.', who:['Chris Stussy','AMOR']},
+  {id:'eiffel25', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
+   text:'Sunday Music prend le premier étage de la Tour Eiffel.', who:['Carlita']},
+];
+
+const LEVELS = [[0,'Curieux·se','Coche les éditions où tu étais.'],[1,'Newcomer','Bienvenue dans la famille.'],
+  [3,'Regular','Tu connais le chemin du dimanche.'],[5,'Sunday Family','Tu fais partie des murs.'],[8,'Légende','Tu as tout fait. Respect.']];
+
+// Artistes : head = tête d'affiche
+const ARTISTS = [
+  {n:'ANOTR', ig:'anotr.music', ed:'Aéroport 2026', head:1},
+  {n:'Black Coffee', ig:'realblackcoffee', ed:'Arènes de Nîmes 2026', head:1},
+  {n:'Mochakk', ig:'mochakk', ed:'Arènes de Lunel 2026', head:1},
+  {n:'Chris Stussy', ig:'chrisstussydj', ed:'Aéroport 2025'},
+  {n:'Carlita', ig:'carlitamusic', ed:'Tour Eiffel 2025'},
+  {n:'AMOR', ig:'this_is_amor', ed:'Stage A320 · 2025 & 2026'},
+  {n:'Silvie Loto', ig:'silvieloto', ed:'Aéroport 2026'},
+  {n:'ALCI', ig:'alcimusiq', ed:'Aéroport 2026'},
+  {n:'Soubeiran', ig:'soubeiran00', ed:'Aéroport 2026'},
+  {n:'Tibo KSRG', ig:'tibo_ksrg', ed:'Aéroport 2026'},
+  {n:'Casa Mata', ig:'casamata_music', ed:'Stage A320 · 2026'},
+  {n:'DJ Jean Ba', ig:'djjeanba', ed:'Aéroport 2026'},
+  {n:'Amrita', ed:'Stage A320 · 2026'},
+  {n:'Bellamour', ed:'Stage A320 · 2026'},
+  {n:'Fleur', ed:'Stage A320 · 2026'},
+  {n:'L\'Amorosso', ed:'Stage A320 · 2026'},
+  {n:'Messina b2b Auguste', ed:'Stage A320 · 2026'},
+  {n:'SOWA', ed:'Stage A320 · 2026'},
+];
+
+// Posts Instagram (liens vérifiés le 11/10/2026)
+const POSTS = [
+  ['p/DdRqsyQDLav','Aéroport','15 000 personnes autour d\'ANOTR. Notre plus gros show de l\'année.'],
+  ['p/Ddb0CbODI-f','Aéroport','ANOTR à l\'aéroport : un de nos shows les plus iconiques ✈️'],
+  ['p/Dd9T99vDGev','Aéroport','Quelques souvenirs laissés par celles et ceux qui étaient là 🎞️'],
+  ['p/DdPzwNYDLXK','Aéroport','Et c\'est comme ça qu\'on finit une journée pareille 🌴'],
+  ['p/DdPld-1DOxG','Aéroport','What a day 🌞'],
+  ['p/DdO362fDIqu','Aéroport','We are back @mplaeroport ✈️'],
+  ['reel/DdJ7xiksQv2','Aéroport','Montage jour 3, J-2. Le sold out est imminent.'],
+  ['reel/DdHNzTUyYqv','Aéroport','Montage jour 2 : plus que 3 jours.'],
+  ['reel/Db8m1-dMYto','Aéroport','L\'ambiance unique de la Tipi Stage ⛺️'],
+  ['p/DbqhFZdsXvt','Aéroport','Line-up de la Stage A320 by AMOR ❤️‍🔥'],
+  ['p/Daia89QDJzB','Aéroport','Welcome ANOTR 🇳🇱 Leur seule date festival en France en 2026.'],
+  ['reel/Daftt_-sb6g','Arènes','Être un DJ brésilien pendant la Coupe du monde ⚽️ Mochakk'],
+  ['p/DafYP3FjNie','Arènes','Merci pour cette édition si spéciale, dans notre ville 🏠'],
+  ['p/Dabg0-LDPsf','Arènes','As we say : Sunday is not a day off 🌞'],
+  ['p/DXhIH6IjJFW','Arènes','Welcome Mochakk 🇧🇷 aux Arènes de Lunel'],
+  ['reel/DXo-t_mDFcv','Arènes','Déjà 8 000 inscrits ✨'],
+  ['p/DYNN6ljDIyL','Arènes','14 000 danseurs avec la légende Black Coffee.'],
+  ['reel/DYGCTe6Mt_T','Arènes','Fiers d\'avoir produit ce show avec Black Coffee ⚡️'],
+  ['p/DYFh9tlDMl6','Arènes','History is starting today 🌴🏟️'],
+  ['reel/DUnLV0XDP35','Club','4ᵉ édition à La Dune : club, patio et rooftop.'],
+  ['p/DUlcmVzDKdA','Club','Origins, sold out ❤️ Un rappel de nos débuts.'],
+  ['p/DS2uA6mjLbv','Tour Eiffel','Merci pour 2025 ! De la Tour Eiffel à l\'aéroport ❤️'],
+  ['reel/DRaE1VeDFRh','Tour Eiffel','Le 25 mai, on a pris le 1er étage de la Tour Eiffel.'],
+  ['p/DOti-fTjOup','Aéroport','12 000 personnes. Une édition sold out ❤️'],
+];
+
+const PALETTE = {'Aéroport':['#7cc4e8','#3a8fc2'],'Arènes':['#ff8a3d','#c8431a'],'Club':['#2a1608','#6b3a1c'],'Tour Eiffel':['#2f7d5b','#1d5a40']};
+const grad = k => `linear-gradient(150deg,${PALETTE[k][0]},${PALETTE[k][1]})`;
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Navigation
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('nav button, section').forEach(e => e.classList.remove('on'));
+  b.classList.add('on'); document.getElementById(b.dataset.tab).classList.add('on'); scrollTo(0, 0);
+});
+
+// Compte à rebours jusqu'au prochain dimanche 13 h
+function nextSunday(now) {
+  const d = new Date(now); d.setHours(13, 0, 0, 0);
+  d.setDate(d.getDate() + (7 - d.getDay()) % 7);
+  if (d <= now) d.setDate(d.getDate() + 7);
+  return d;
+}
+function tick() {
+  let s = Math.floor((nextSunday(new Date()) - new Date()) / 1000);
+  const parts = [[Math.floor(s / 86400), 'jours'], [Math.floor(s % 86400 / 3600), 'heures'], [Math.floor(s % 3600 / 60), 'min'], [s % 60, 'sec']];
+  document.getElementById('cd').innerHTML = parts.map(([v, l]) => `<div><b>${String(v).padStart(2, '0')}</b><span>${l}</span></div>`).join('');
+}
+tick(); setInterval(tick, 1000);
+
+// Passeport (stocké sur le téléphone uniquement)
+let been;
+try { been = new Set(JSON.parse(localStorage.getItem('sunday-passport') || '[]')); } catch { been = new Set(); }
+function save() { try { localStorage.setItem('sunday-passport', JSON.stringify([...been])); } catch {} }
+function renderPassport() {
+  const n = been.size, lv = LEVELS.filter(l => n >= l[0]).pop(), next = LEVELS.find(l => l[0] > n);
+  document.getElementById('lvl').textContent = `${lv[1]} · ${n}/${EDITIONS.length}`;
+  document.getElementById('barfill').style.width = (n / EDITIONS.length * 100) + '%';
+  document.getElementById('lvlhint').textContent = lv[2] + (next ? ` Encore ${next[0] - n} pour devenir ${next[1]}.` : '');
+}
+document.getElementById('timeline').innerHTML = EDITIONS.map(e => `
+  <div class="ed card" data-ico="${e.ico}">
+    <div class="when">${e.when}</div><h3>${esc(e.title)}</h3><p>${esc(e.text)}</p>
+    ${e.who.length ? `<div class="who">🎧 ${e.who.map(esc).join(' · ')}</div>` : ''}
+    <button class="stamp" data-id="${e.id}" aria-pressed="${been.has(e.id)}">${been.has(e.id) ? '✓ J\'y étais' : '+ J\'y étais'}</button>
+  </div>`).join('');
+document.getElementById('timeline').onclick = ev => {
+  const b = ev.target.closest('.stamp'); if (!b) return;
+  been.has(b.dataset.id) ? been.delete(b.dataset.id) : been.add(b.dataset.id);
+  const on = been.has(b.dataset.id);
+  b.setAttribute('aria-pressed', on); b.textContent = on ? '✓ J\'y étais' : '+ J\'y étais';
+  save(); renderPassport();
+};
+renderPassport();
+
+// Line-up
+const artistColor = a => a.head ? grad('Arènes') : a.ed.includes('A320') ? grad('Aéroport') : a.ed.includes('Eiffel') ? grad('Tour Eiffel') : grad('Club');
+function renderArtists(q = '') {
+  const list = ARTISTS.filter(a => a.n.toLowerCase().includes(q.toLowerCase()));
+  document.getElementById('artists').innerHTML = list.length ? list.map(a => {
+    const href = a.ig ? IG + a.ig + '/' : IG + 'explore/search/keyword/?q=' + encodeURIComponent(a.n);
+    return `<a class="artist${a.head && !q ? ' head' : ''}" style="background:${artistColor(a)}" href="${href}" target="_blank" rel="noopener">
+      <b>${esc(a.n)}</b><span>${esc(a.ed)}</span><span>${a.ig ? '@' + a.ig : 'Rechercher sur Instagram'}</span></a>`;
+  }).join('') : '<p class="empty" style="grid-column:span 2">Aucun artiste trouvé.</p>';
+}
+document.getElementById('q').oninput = e => renderArtists(e.target.value.trim());
+renderArtists();
+
+// Moments
+let place = 'Tous';
+function renderFeed() {
+  const places = ['Tous', ...Object.keys(PALETTE)];
+  document.getElementById('places').innerHTML = places.map(p => `<button class="chip${p === place ? ' on' : ''}" data-p="${p}">${p}</button>`).join('');
+  document.getElementById('feed').innerHTML = POSTS.filter(p => place === 'Tous' || p[1] === place).map(([path, pl, cap]) =>
+    `<a class="mo" style="background:${grad(pl)}" href="${IG}sundaymusic.ofc/${path}/" target="_blank" rel="noopener">
+      <div class="tag">${path.startsWith('reel') ? '▶ Reel' : '◻ Photo'} · ${pl}</div><p>${esc(cap)}</p><small>Voir sur Instagram ↗</small></a>`).join('');
+}
+document.getElementById('places').onclick = ev => { const b = ev.target.closest('.chip'); if (b) { place = b.dataset.p; renderFeed(); } };
+renderFeed();
+
+// Auto-test : ?test dans l'URL
+if (location.search.includes('test')) {
+  const sat = new Date(2026, 9, 10, 20), sunAm = new Date(2026, 9, 11, 9), sunPm = new Date(2026, 9, 11, 14);
+  console.assert(nextSunday(sat).getDate() === 11, 'samedi → demain');
+  console.assert(nextSunday(sunAm).getDate() === 11, 'dimanche matin → aujourd\'hui');
+  console.assert(nextSunday(sunPm).getDate() === 18, 'dimanche après 13 h → semaine suivante');
+  console.log('selftest ok');
+}
+</script>
+</body>
+</html>
