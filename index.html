@@ -95,10 +95,30 @@ h2 em{font-weight:500;color:var(--orange)}
 .mo small{display:block;margin-top:10px;font-size:11px;opacity:.85}
 .empty{color:var(--mute);text-align:center;padding:30px 0}
 
+/* Jour J */
+.sub{font:800 20px var(--serif);margin:22px 0 10px}
+.live .kicker{margin-bottom:8px}
+.set{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.set:last-of-type{border:0}
+.set time{font:800 14px var(--sans);color:var(--mute);width:44px}
+.set b{font:800 17px var(--serif);flex:1}
+.set .badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:99px;padding:4px 9px;background:var(--line);color:var(--mute)}
+.set.now b{color:var(--orange)} .set.now .badge{background:var(--orange);color:var(--bg)}
+.set.past{opacity:.45}
+.note{font-size:12px;color:var(--mute);margin-top:8px}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-bottom:8px}
+summary{font-weight:800;cursor:pointer}
+details p{color:var(--mute);font-size:14px;margin-top:6px}
+.shop{display:flex;gap:14px;align-items:center;text-decoration:none;margin-top:10px}
+.shop span{font-size:30px}
+.shop p{font-size:13px;color:var(--mute)}
+.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.partners div{border:1.5px dashed var(--line);border-radius:14px;height:64px;display:grid;place-items:center;font-size:11px;color:var(--mute);text-align:center;padding:4px}
+
 /* Tab bar */
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));display:flex;gap:4px;
   background:var(--ink);border-radius:99px;padding:6px;box-shadow:0 10px 30px rgba(42,22,8,.25);z-index:5}
-nav button{border:0;background:none;color:var(--bg);font:800 12px var(--sans);padding:10px 14px;border-radius:99px;cursor:pointer;opacity:.7;white-space:nowrap}
+nav button{border:0;background:none;color:var(--bg);font:800 12px var(--sans);padding:10px 11px;border-radius:99px;cursor:pointer;opacity:.7;white-space:nowrap}
 nav button.on{background:var(--sun);color:var(--ink);opacity:1}
 .passport{background:linear-gradient(160deg,#1d3024,#0f1812);color:var(--ink);border:1px solid var(--line)}
 .next .date{color:var(--bg)}
@@ -131,7 +151,8 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
     <div>
       <div class="kicker">Prochaine édition</div>
       <h3>Clos de Provence</h3>
-      <p>Date et line-up à venir. La billetterie ouvre d'abord aux pré-inscrits, sur le lien en bio Instagram.</p>
+      <p>Date et line-up à venir. Les préventes ouvrent d'abord aux inscrits de l'app.</p>
+      <button class="stamp" id="presale" aria-pressed="false">🎫 Je me pré-inscris aux préventes</button>
     </div>
   </div>
   <div class="row">
@@ -167,6 +188,24 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
   <div class="moments" id="feed"></div>
 </section>
 
+<section id="infos">
+  <div class="kicker">Le jour J</div>
+  <h2>Live &amp; <em>infos</em></h2>
+  <div class="card live">
+    <div class="kicker">Programme en direct</div>
+    <div id="sets"></div>
+    <button class="stamp" id="alerts" aria-pressed="false">🔔 Me prévenir avant chaque set</button>
+    <p class="note">Exemple avec le line-up de l'aéroport 2026, calé sur l'heure de ton téléphone.</p>
+  </div>
+  <h3 class="sub">Infos pratiques</h3>
+  <div id="faq"></div>
+  <p class="note">Exemple : le gérant remplit ces infos depuis son espace.</p>
+  <a class="card shop" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener"><span>🛍️</span><div><b>Boutique officielle</b><p>Le merch Sunday Music, à un clic.</p></div></a>
+  <h3 class="sub">Nos partenaires</h3>
+  <div class="partners"><div>Votre logo ici</div><div>Votre logo ici</div><div>Votre logo ici</div></div>
+  <p class="note">Exemple d'espace partenaire, vendu par le festival à ses sponsors.</p>
+</section>
+
 <footer>Données reprises du compte Instagram public @sundaymusic.ofc · octobre 2026</footer>
 </main>
 
@@ -175,6 +214,7 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
   <button data-tab="editions">Éditions</button>
   <button data-tab="lineup">Line-up</button>
   <button data-tab="moments">Moments</button>
+  <button data-tab="infos">Jour J</button>
 </nav>
 
 <script>
@@ -328,12 +368,56 @@ function renderFeed() {
 document.getElementById('places').onclick = ev => { const b = ev.target.closest('.chip'); if (b) { place = b.dataset.p; renderFeed(); } };
 renderFeed();
 
+// Jour J : programme en direct (exemple : aéroport 2026, de 13 h à 1 h)
+const SETS = [['13:00','Soubeiran'],['15:00','ALCI'],['17:00','Silvie Loto'],['19:00','AMOR'],['21:00','ANOTR'],['23:00','Casa Mata']];
+const START = 13 * 60, END = 25 * 60; // 1 h du matin = 25 h
+function liveIndex(d) {
+  let m = d.getHours() * 60 + d.getMinutes();
+  if (m < 6 * 60) m += 24 * 60; // après minuit
+  if (m < START || m >= END) return -1;
+  return SETS.reduce((i, [t], k) => { const [h, mn] = t.split(':').map(Number); return h * 60 + mn <= m ? k : i; }, 0);
+}
+function renderSets() {
+  const i = liveIndex(new Date());
+  document.getElementById('sets').innerHTML = SETS.map(([t, n], k) => {
+    const cls = i < 0 ? '' : k < i ? ' past' : k === i ? ' now' : '';
+    const badge = i < 0 ? '' : k === i ? 'En ce moment' : k === i + 1 ? 'Ensuite' : '';
+    return `<div class="set${cls}"><time>${t}</time><b>${esc(n)}</b>${badge ? `<span class="badge">${badge}</span>` : ''}</div>`;
+  }).join('');
+}
+renderSets(); setInterval(renderSets, 60000);
+
+const FAQ = [
+  ['🕐 Horaires', 'Ouverture des portes à 13 h, fin du show à 1 h.'],
+  ['🚌 Accès et navettes', 'Navettes depuis le centre-ville et parking sur réservation : les détails sont envoyés aux inscrits.'],
+  ['🚫 Objets interdits', 'Bouteilles en verre, objets coupants, drones et gros sacs.'],
+  ['💳 Paiement', 'Carte bancaire acceptée partout sur le site.'],
+  ['🧥 Vestiaire', 'Vestiaire disponible à l\'entrée.'],
+];
+document.getElementById('faq').innerHTML = FAQ.map(([q, a]) => `<details><summary>${q}</summary><p>${esc(a)}</p></details>`).join('');
+
+// Boutons mémorisés sur le téléphone : préventes et alertes
+function toggle(id, key, off, on) {
+  const b = document.getElementById(id);
+  let v; try { v = localStorage.getItem(key) === '1'; } catch { v = false; }
+  const show = () => { b.setAttribute('aria-pressed', v); b.textContent = v ? on : off; };
+  b.onclick = () => { v = !v; try { localStorage.setItem(key, v ? '1' : '0'); } catch {} show(); };
+  show();
+}
+toggle('presale', 'sunday-presale', '🎫 Je me pré-inscris aux préventes', '✓ Pré-inscrit·e : tu seras prévenu·e en premier');
+toggle('alerts', 'sunday-alerts', '🔔 Me prévenir avant chaque set', '✓ Alertes activées');
+
 // Auto-test : ?test dans l'URL
 if (location.search.includes('test')) {
   const sat = new Date(2026, 9, 10, 20), sunAm = new Date(2026, 9, 11, 9), sunPm = new Date(2026, 9, 11, 14);
   console.assert(nextSunday(sat).getDate() === 11, 'samedi → demain');
   console.assert(nextSunday(sunAm).getDate() === 11, 'dimanche matin → aujourd\'hui');
   console.assert(nextSunday(sunPm).getDate() === 18, 'dimanche après 13 h → semaine suivante');
+  console.assert(liveIndex(new Date(2026, 8, 13, 12, 0)) === -1, 'avant 13 h → pas de set');
+  console.assert(liveIndex(new Date(2026, 8, 13, 13, 0)) === 0, '13 h → premier set');
+  console.assert(liveIndex(new Date(2026, 8, 13, 22, 30)) === 4, '22 h 30 → ANOTR');
+  console.assert(liveIndex(new Date(2026, 8, 14, 0, 30)) === 5, 'minuit et demi → dernier set');
+  console.assert(liveIndex(new Date(2026, 8, 14, 1, 0)) === -1, '1 h → fini');
   console.log('selftest ok');
 }
 </script>
