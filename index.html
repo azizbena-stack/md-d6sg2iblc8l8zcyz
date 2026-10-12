@@ -4,95 +4,110 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Sunday Music</title>
-<meta name="theme-color" content="#0a110d">
+<meta name="theme-color" content="#f4ecdf">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="logo.png">
 <link rel="apple-touch-icon" href="logo.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500;1,9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500;1,9..144,800&family=Manrope:wght@400;600;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* couleurs du logo : feuillage vert-noir + S blanc */
-  --bg:#0a110d; --card:#111b15; --ink:#f2f0e8; --mute:#8ea395; --line:#213128;
-  --sun:#f2f0e8; --orange:#a9c9a4; --terra:#7fa889; --palm:#3e6b4f; --leaf:#16231b;
-  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+  /* DA reprise du feed @sundaymusic.ofc : photo argentique, golden hour, sable, ciel, bois des scènes, nuits bleues */
+  --bg:#f4ecdf; --card:#fffaf1; --ink:#1d1814; --mute:#7a6a5c; --line:#e3d5c1;
+  --sun:#f3b259; --orange:#e2672f; --terra:#a5583a; --sky:#8fb9d8; --wood:#5e4130; --night:#151a2a;
+  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --hand:'Caveat',cursive;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+/* grain de pellicule */
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.09;mix-blend-mode:multiply;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 a{color:inherit}
-.demo{background:var(--leaf);color:var(--mute);text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px}
+.demo{background:var(--ink);color:#d9cbb6;text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px}
 main{max-width:560px;margin:0 auto;padding:0 16px}
 section{display:none;padding-top:20px}
 section.on{display:block;animation:rise .35s ease}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 h1,h2,h3{font-family:var(--serif);font-weight:800;line-height:1.05}
-h2{font-size:30px;margin:6px 0 14px}
+h2{font-size:34px;margin:2px 0 14px;letter-spacing:-.01em}
 h2 em{font-weight:500;color:var(--orange)}
 .kicker{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.hand{font-family:var(--hand);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 1px 0 rgba(94,65,48,.06)}
 .btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:99px;padding:12px 18px;font:800 14px var(--sans);background:var(--ink);color:var(--bg);text-decoration:none;cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
 
-/* Accueil */
-.hero{position:relative;overflow:hidden;border-radius:28px;padding:28px 22px 24px;color:var(--ink);
-  background:radial-gradient(120% 80% at 100% 0%,#2f4a39 0%,rgba(47,74,57,0) 60%),radial-gradient(90% 70% at 0% 100%,#22382a 0%,rgba(34,56,42,0) 60%),#0f1912;border:1px solid var(--line)}
-.hero .logo{position:absolute;width:84px;height:84px;border-radius:50%;right:16px;top:20px;object-fit:cover;
-  box-shadow:0 0 0 1px rgba(242,240,232,.15),0 12px 40px rgba(0,0,0,.6);animation:breathe 6s ease-in-out infinite}
-@keyframes breathe{50%{transform:scale(1.08)}}
-.hero h1{position:relative;font-size:56px;letter-spacing:-.02em}
-.hero h1 i{font-weight:500}
-.hero p{position:relative;font-family:var(--serif);font-style:italic;font-size:20px;margin-top:4px}
-.countdown{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:22px}
-.countdown div{background:rgba(242,240,232,.07);backdrop-filter:blur(6px);border-radius:14px;padding:10px 4px;text-align:center}
+/* Accueil : ciel de fin de journée, comme les photos du tarmac */
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:28px 22px 24px;color:#fff;
+  background:linear-gradient(180deg,#2c6ab5 0%,#5b92cb 30%,#c8b9a7 56%,#f2b06a 76%,#e2672f 100%)}
+.hero:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;left:50%;bottom:-120px;transform:translateX(-50%);
+  background:radial-gradient(circle,#fff3d6 0%,#ffd38a 35%,rgba(255,200,120,0) 70%)}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:48px;
+  background:linear-gradient(180deg,rgba(29,24,20,0),rgba(29,24,20,.35))}
+/* logo officiel (sundaymusic.events), blanc sur fond transparent */
+.hero h1{position:relative;z-index:1;margin:6px -4px 0}
+.hero .wordmark{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(20,40,80,.35));margin-bottom:10px}
+.hero p{position:relative;z-index:1;font-family:var(--hand);font-weight:700;font-size:28px;line-height:1;margin-top:6px;transform:rotate(-2deg);text-align:center}
+.countdown{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:26px}
+.countdown div{background:rgba(255,250,241,.22);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:10px 4px;text-align:center}
 .countdown b{display:block;font:800 26px var(--serif)}
 .countdown span{font-size:10px;text-transform:uppercase;letter-spacing:.1em}
-.hero small{position:relative;display:block;margin-top:10px;font-size:12px;opacity:.9}
+.hero small{position:relative;z-index:1;display:block;margin-top:10px;text-align:center;font-size:12px;font-weight:600}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
 .stats .card{padding:14px 10px;text-align:center}
 .stats b{display:block;font:800 24px var(--serif);color:var(--orange)}
 .stats span{font-size:11px;color:var(--mute)}
 .next{display:flex;gap:14px;align-items:center;margin-bottom:16px}
-.next .date{flex:none;width:64px;height:64px;border-radius:16px;background:var(--sun);display:grid;place-items:center;font:800 13px var(--serif);text-align:center;line-height:1.1}
+.next .date{flex:none;width:64px;height:64px;border-radius:16px;background:var(--wood);color:#fffaf1;display:grid;place-items:center;font:700 20px var(--hand);text-align:center;line-height:1;transform:rotate(-4deg)}
 .next p{font-size:13px;color:var(--mute)}
 .row{display:flex;gap:10px;flex-wrap:wrap}
+.socials{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.socials .btn{justify-content:center;padding:11px 2px;font-size:11px;min-width:0}
 
 /* Éditions + passeport */
-.passport{background:var(--ink);color:var(--bg);border-radius:22px;padding:18px;margin-bottom:18px}
-.passport .lvl{font:800 26px var(--serif);color:var(--sun)}
+.passport{position:relative;overflow:hidden;background:var(--night);color:#fffaf1;border-radius:22px;padding:18px;margin-bottom:18px;
+  background:radial-gradient(90% 120% at 100% 100%,rgba(226,103,47,.55),rgba(226,103,47,0) 60%),var(--night)}
+.passport .kicker{color:var(--sun)}
+.passport .lvl{font:800 26px var(--serif)}
 .bar{height:8px;border-radius:9px;background:rgba(255,255,255,.15);margin:12px 0 6px;overflow:hidden}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--orange));transition:width .4s}
-.passport small{opacity:.75;font-size:12px}
+.passport small{opacity:.8;font-size:12px}
 .timeline{position:relative;padding-left:26px}
-.timeline:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(var(--orange) 0 6px,transparent 6px 12px)}
+.timeline:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(var(--terra) 0 6px,transparent 6px 12px)}
 .ed{position:relative;margin-bottom:14px}
 .ed:before{content:attr(data-ico);position:absolute;left:-30px;top:14px;width:22px;height:22px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:13px}
 .ed .when{font-size:12px;font-weight:800;color:var(--terra);text-transform:uppercase;letter-spacing:.06em}
 .ed h3{font-size:21px;margin:2px 0 4px}
 .ed p{font-size:13px;color:var(--mute)}
 .ed .who{font-size:13px;margin-top:6px}
-.stamp{margin-top:10px;border:1.5px dashed var(--line);background:none;border-radius:99px;padding:7px 14px;font:800 12px var(--sans);color:var(--mute);cursor:pointer}
-.stamp[aria-pressed=true]{border:1.5px solid var(--palm);background:var(--palm);color:#fff}
+.stamp{margin-top:10px;border:1.5px dashed #cdb89c;background:none;border-radius:99px;padding:7px 14px;font:800 12px var(--sans);color:var(--wood);cursor:pointer}
+.stamp[aria-pressed=true]{border:1.5px solid var(--orange);background:var(--orange);color:#fff}
 
 /* Line-up */
-.search{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:12px 16px;font:15px var(--sans);margin-bottom:12px}
+.search{width:100%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:12px 16px;font:15px var(--sans);margin-bottom:12px}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:6px;scrollbar-width:none}
 .chip{flex:none;border:1.5px solid var(--ink);background:none;border-radius:99px;padding:7px 14px;font:800 12px var(--sans);cursor:pointer;color:var(--ink)}
 .chip.on{background:var(--ink);color:var(--bg)}
 .artists{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.artist{display:block;text-decoration:none;border-radius:18px;padding:14px;min-height:118px;position:relative;overflow:hidden;color:#fff8ec}
+.artist{display:block;text-decoration:none;border-radius:18px;padding:14px;min-height:118px;position:relative;overflow:hidden;color:#fffaf1;text-shadow:0 1px 10px rgba(29,24,20,.25)}
 .artist b{font:800 19px var(--serif);display:block;line-height:1.1}
-.artist span{font-size:11px;opacity:.9;display:block;margin-top:6px}
+.artist span{font-size:11px;opacity:.92;display:block;margin-top:6px}
 .artist.head{grid-column:span 2;min-height:150px}
-.artist.head b{font-size:30px}
+.artist.head b{font-size:32px}
 .artist:after{content:"↗";position:absolute;right:12px;bottom:10px;font-weight:800}
 
-/* Moments */
-.moments{columns:2;column-gap:10px}
-.mo{break-inside:avoid;display:block;text-decoration:none;margin-bottom:10px;border-radius:18px;padding:14px;color:#fff8ec}
-.mo .tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
-.mo p{font-family:var(--serif);font-size:16px;line-height:1.25;margin-top:6px}
-.mo small{display:block;margin-top:10px;font-size:11px;opacity:.85}
+/* Moments : en polaroïds, comme leurs souvenirs annotés au feutre */
+/* morceaux de pellicule 35 mm séparés, 2 par ligne, défilement vertical */
+.moments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mo{padding:22px 8px 24px;border-radius:4px;box-shadow:0 6px 16px rgba(29,24,20,.18);
+  background:linear-gradient(90deg,var(--bg) 0 8px,transparent 8px) 4px 7px/16px 8px repeat-x,
+             linear-gradient(90deg,var(--bg) 0 8px,transparent 8px) 4px calc(100% - 7px)/16px 8px repeat-x,#1b1612}
+/* l'intégration Instagram est rendue à 326 px puis réduite à la largeur de l'image (--k), sinon elle se casse en petit */
+.mo .ph{position:relative;aspect-ratio:176/200;overflow:hidden;border-radius:2px}
+.mo .ph iframe{position:absolute;top:0;left:0;width:326px;height:760px;border:0;transform:scale(var(--k,.46));transform-origin:0 0}
+.mo .edge{font:700 8px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:var(--orange);margin-top:7px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mo a{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-decoration:none;font:700 15px/1.1 var(--hand);color:#efe2cd;margin-top:5px}
 .empty{color:var(--mute);text-align:center;padding:30px 0}
 
 /* Jour J */
@@ -102,8 +117,8 @@ h2 em{font-weight:500;color:var(--orange)}
 .set:last-of-type{border:0}
 .set time{font:800 14px var(--sans);color:var(--mute);width:44px}
 .set b{font:800 17px var(--serif);flex:1}
-.set .badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:99px;padding:4px 9px;background:var(--line);color:var(--mute)}
-.set.now b{color:var(--orange)} .set.now .badge{background:var(--orange);color:var(--bg)}
+.set .badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:99px;padding:4px 9px;background:var(--line);color:var(--wood)}
+.set.now b{color:var(--orange)} .set.now .badge{background:var(--orange);color:#fff}
 .set.past{opacity:.45}
 .note{font-size:12px;color:var(--mute);margin-top:8px}
 details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-bottom:8px}
@@ -113,157 +128,471 @@ details p{color:var(--mute);font-size:14px;margin-top:6px}
 .shop span{font-size:30px}
 .shop p{font-size:13px;color:var(--mute)}
 .partners{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.partners div{border:1.5px dashed var(--line);border-radius:14px;height:64px;display:grid;place-items:center;font-size:11px;color:var(--mute);text-align:center;padding:4px}
+.partners div{border:1.5px dashed #cdb89c;border-radius:14px;height:64px;display:grid;place-items:center;font-size:11px;color:var(--mute);text-align:center;padding:4px}
 
 /* Tab bar */
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));display:flex;gap:4px;
-  background:var(--ink);border-radius:99px;padding:6px;box-shadow:0 10px 30px rgba(42,22,8,.25);z-index:5}
-nav button{border:0;background:none;color:var(--bg);font:800 12px var(--sans);padding:10px 11px;border-radius:99px;cursor:pointer;opacity:.7;white-space:nowrap}
-nav button.on{background:var(--sun);color:var(--ink);opacity:1}
-.passport{background:linear-gradient(160deg,#1d3024,#0f1812);color:var(--ink);border:1px solid var(--line)}
-.next .date{color:var(--bg)}
-.search{color:var(--ink)}
-nav{background:var(--leaf);border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-nav button{color:var(--ink)}
-nav button.on{background:var(--ink);color:var(--bg)}
+  background:var(--ink);border-radius:99px;padding:6px;box-shadow:0 10px 30px rgba(94,65,48,.35);z-index:5;max-width:calc(100vw - 16px)}
+nav button{border:0;background:none;color:#e9dcc8;font:800 12px var(--sans);padding:10px 8px;border-radius:99px;cursor:pointer;white-space:nowrap}
+@media (max-width:380px){nav button{padding:10px 6px;font-size:11.5px}}
+nav button.on{background:var(--sun);color:var(--ink)}
+/* Billet */
+.ticket{display:flex;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:10px;box-shadow:0 8px 22px rgba(94,65,48,.12)}
+.tk-main{flex:1;padding:16px;background:linear-gradient(160deg,#fffaf1 40%,#fbe3c7)}
+.tk-main h3{font-size:21px;margin:4px 0 2px}
+.tk-main p{font-size:13px;color:var(--mute)}
+.tk-grid{display:flex;gap:12px;margin-top:12px}
+.tk-grid span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mute)}
+.tk-grid b{font:800 15px var(--serif);white-space:nowrap}
+.tk-stub{flex:none;width:118px;padding:12px;border-left:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
+.tk-stub img{width:94px;height:94px;border-radius:6px}
+.tk-stub small{font-size:10px;color:var(--mute);line-height:1.2}
+.btn.sm{padding:9px 14px;font-size:12px}
+/* Programme perso */
+.seg{display:flex;gap:6px;margin-bottom:6px}
+.fav{border:0;background:none;font-size:20px;line-height:1;cursor:pointer;color:#cdb89c;padding:2px 4px}
+.fav[aria-pressed=true]{color:var(--orange)}
+/* Plan */
+.map svg{display:block;width:100%;height:auto}
+.map .pt{cursor:pointer}
+.map .pt circle{fill:#fffaf1;stroke:var(--wood);stroke-width:1.5;transition:.2s}
+.map .pt.on circle{fill:var(--sun);stroke:var(--orange);stroke-width:3}
+.map .pt text{font-size:14px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.map .lbl{font:800 9px var(--sans);fill:var(--wood);text-anchor:middle;letter-spacing:.06em;pointer-events:none}
+#mapinfo{font-size:14px;margin-top:8px;min-height:42px}
+/* Aide */
+.help{background:#fbe7dc;border-color:#f0c7b3;margin-top:10px}
+.help b{font:800 18px var(--serif)}
+.help ul{font-size:13px;color:var(--wood);margin:8px 0 10px 18px}
+.btn.red{background:#c2412d;color:#fff}
+/* Retour */
+.bus{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.bus:last-of-type{border:0}
+.bus.last b{color:var(--orange)}
+/* Espace gérant */
+.gerant-link{display:inline-block;margin-top:10px;border:1.5px solid var(--line);border-radius:99px;padding:8px 14px;background:var(--card);font:800 12px var(--sans);color:var(--wood);cursor:pointer}
+.hbar{display:grid;grid-template-columns:96px 1fr 44px;align-items:center;gap:8px;padding:5px 0;font-size:13px}
+.hbar i{display:block;height:10px;border-radius:0 4px 4px 0;background:var(--orange)}
+.hbar span:last-child{text-align:right;font-weight:800;color:var(--ink)}
+.hbar:hover i{background:var(--terra)}
+.gcard{margin-bottom:12px}
+.gcard .kicker{margin-bottom:8px}
+textarea{width:100%;min-height:74px;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;font:14px var(--sans);background:#fff;color:var(--ink);margin-bottom:10px;resize:vertical}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:var(--ink);color:#fffaf1;padding:10px 16px;border-radius:14px;font-size:13px;width:max-content;max-width:calc(100vw - 32px);text-align:center;transition:.25s;z-index:8}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+/* Ajouts : sondage, souvenirs, avis, météo, amis, gérant */
+.demo button{margin-left:8px;border:1px solid #d9cbb6;background:none;color:#fffaf1;border-radius:99px;padding:1px 8px;font:800 10px var(--sans);cursor:pointer}
+.poll button.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin-top:8px;font:800 14px var(--sans);color:var(--ink);cursor:pointer}
+.poll .hbar{grid-template-columns:110px 1fr 40px}
+.poll .hbar.me span:first-child{color:var(--orange);font-weight:800}
+.souv a{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:14px}
+.souv a:last-child{border:0}
+.stars{display:flex;gap:4px;margin:6px 0 10px}
+.stars button{border:0;background:none;font-size:30px;line-height:1;color:#ddcbb2;cursor:pointer;padding:0 2px}
+.stars button.on{color:var(--sun)}
+.meteo{display:flex;align-items:center;gap:14px;margin-top:16px}
+.meteo .ico{font-size:40px;line-height:1}
+.meteo b{font:800 22px var(--serif)}
+.meteo p{font-size:13px;color:var(--mute)}
+select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:600 14px var(--sans);background:#fff;color:var(--ink);margin:6px 0 10px}
+.gauge{height:12px;border-radius:9px;background:var(--line);overflow:hidden;margin:8px 0 4px}
+.gauge i{display:block;height:100%;background:var(--orange);border-radius:9px}
+.zone{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.zone:last-child{border:0}
+.quote{font-family:var(--hand);font-size:19px;color:#22305a;margin-top:6px}
+/* Onglet Moi */
+.me-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}
+.me-grid button{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px 6px;font:800 12px var(--sans);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+.me-grid button span{font-size:24px}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.setting:last-child{border:0}
+.setting button{border:1.5px solid var(--line);background:none;border-radius:99px;padding:6px 12px;font:800 12px var(--sans);color:var(--wood);cursor:pointer;white-space:nowrap}
+.setting button.danger{color:#c2412d;border-color:#f0c7b3}
 footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
+/* Sunny : guide qui présente l'app (vidéos HeyGen dans sunny/, sinon voix du téléphone) */
+#sunny-btn{overflow:hidden;padding:0;position:fixed;right:16px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:8;width:58px;height:58px;border-radius:50%;border:3px solid #fffaf1;cursor:pointer;
+  background:radial-gradient(circle at 50% 40%,var(--sun),var(--orange));font-size:30px;box-shadow:0 6px 18px rgba(94,65,48,.35);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+#sunny{position:fixed;left:16px;right:16px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:8;max-width:528px;margin:0 auto;display:none;
+  background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 30px rgba(29,24,20,.25)}
+#sunny.on{display:block;animation:rise .3s ease}
+#sunny .who{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+#sunny .who span{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:radial-gradient(circle at 50% 40%,var(--sun),var(--orange))}
+#sunny .who b{font:800 18px var(--serif)} #sunny .who small{display:block;color:var(--mute);font-size:12px}
+#sunny .who button{margin-left:auto;border:0;background:none;font-size:20px;cursor:pointer;color:var(--mute)}
+#sunny p{font-size:15px;margin-bottom:12px}
+#sunny .row{display:flex;gap:8px;align-items:center}
+#sunny-btn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#sunny .body{display:flex;gap:12px;align-items:flex-start}
+#sunny-vid{width:110px;aspect-ratio:9/16;object-fit:cover;border-radius:16px;background:var(--night);flex:none;margin-bottom:12px}
+#sunny-vid[hidden]{display:none}
+#sunny .row .n{margin-left:auto;font-size:12px;color:var(--mute)}
 </style>
 </head>
 <body>
-<div class="demo">Démo · maquette non officielle</div>
+<div class="demo"><span data-en="Demo · unofficial mock-up">Démo · maquette non officielle</span><button id="lang" aria-label="Changer de langue">EN</button></div>
 <main>
 
 <section id="home" class="on">
   <div class="hero">
-    <img class="logo" src="logo.png" alt="Logo Sunday Music">
-    <h1>Sunday<br><i>Music</i></h1>
+    <h1><img class="wordmark" src="logo-wordmark.webp" alt="Sunday Music"></h1>
     <p>Sunday is not a day off.</p>
     <div class="countdown" id="cd"></div>
-    <small>avant dimanche, 13 h</small>
+    <small data-en="until Sunday, 1 pm">avant dimanche, 13 h</small>
   </div>
   <div class="stats">
-    <div class="card"><b>72,9 k</b><span>abonnés</span></div>
-    <div class="card"><b>15 000</b><span>à l'aéroport avec ANOTR</span></div>
-    <div class="card"><b>Sold out</b><span>chaque édition</span></div>
+    <div class="card"><b>72,9 k</b><span data-en="followers">abonnés</span></div>
+    <div class="card"><b>15 000</b><span data-en="at the airport with ANOTR">à l'aéroport avec ANOTR</span></div>
+    <div class="card"><b>Sold out</b><span data-en="every edition">chaque édition</span></div>
   </div>
   <div class="card next">
-    <div class="date">Bientôt</div>
+    <div class="date" data-en="soon">bientôt</div>
     <div>
-      <div class="kicker">Prochaine édition</div>
+      <div class="kicker" data-en="Next edition">Prochaine édition</div>
       <h3>Clos de Provence</h3>
-      <p>Date et line-up à venir. Les préventes ouvrent d'abord aux inscrits de l'app.</p>
+      <p data-en="Date and line-up coming soon. Presales open first to app members.">Date et line-up à venir. Les préventes ouvrent d'abord aux inscrits de l'app.</p>
       <button class="stamp" id="presale" aria-pressed="false">🎫 Je me pré-inscris aux préventes</button>
+      <button class="stamp" id="waitlist" aria-pressed="false">⏳ Liste d'attente si c'est complet</button>
     </div>
   </div>
-  <div class="row">
-    <a class="btn" href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">Instagram ↗</a>
-    <a class="btn ghost" href="https://linktr.ee/sundaymusic" target="_blank" rel="noopener">Tickets &amp; playlist ↗</a>
-    <a class="btn ghost" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Store ↗</a>
+  <div class="card poll" style="margin-bottom:16px">
+    <div class="kicker" data-en="Fan vote · example">Sondage · exemple</div>
+    <h3 style="font-size:20px;margin-top:4px" data-en="Who for the next edition?">Qui pour la prochaine édition ?</h3>
+    <div id="poll"></div>
+  </div>
+  <div class="socials">
+    <a class="btn" href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">Instagram</a>
+    <a class="btn ghost" href="https://www.tiktok.com/@sundaymusic.ofc" target="_blank" rel="noopener">TikTok</a>
+    <a class="btn ghost" href="https://open.spotify.com/playlist/4sKw4nBBteircZtSko4lfQ" target="_blank" rel="noopener">Spotify</a>
+    <a class="btn ghost" href="https://linktr.ee/sundaymusic" target="_blank" rel="noopener">Linktree</a>
+    <a class="btn ghost" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Store</a>
   </div>
 </section>
 
 <section id="editions">
-  <div class="kicker">De la Tour Eiffel au tarmac</div>
-  <h2>Nos <em>dimanches</em></h2>
+  <div class="kicker" data-en="From the Eiffel Tower to the tarmac">De la Tour Eiffel au tarmac</div>
+  <h2 data-en="Our <em>Sundays</em>">Nos <em>dimanches</em></h2>
   <div class="passport">
-    <div class="kicker" style="color:var(--sun)">Mon passeport Sunday</div>
+    <div class="kicker" data-en="My Sunday passport">Mon passeport Sunday</div>
     <div class="lvl" id="lvl"></div>
     <div class="bar"><i id="barfill"></i></div>
     <small id="lvlhint"></small>
   </div>
+  <div class="card souv" style="margin-bottom:18px">
+    <div class="kicker" data-en="My memories">Mes souvenirs</div>
+    <div id="souv"></div>
+  </div>
   <div class="timeline" id="timeline"></div>
+  <div class="card" style="margin-top:6px">
+    <div class="kicker" data-en="Rate your last edition">Note ta dernière édition</div>
+    <h3 style="font-size:19px;margin-top:4px">Aéroport · 13 sept. 2026</h3>
+    <div class="stars" id="stars"></div>
+    <textarea id="avis" placeholder="Un mot pour l'équipe ? (facultatif)"></textarea>
+    <button class="btn sm" id="avis-send" data-en="Send">Envoyer</button>
+  </div>
 </section>
 
 <section id="lineup">
-  <div class="kicker">Ils ont joué chez nous</div>
+  <div class="kicker" data-en="They played for us">Ils ont joué chez nous</div>
   <h2>Line-<em>up</em></h2>
   <input class="search" id="q" type="search" placeholder="Chercher un artiste…" aria-label="Chercher un artiste">
+  <div class="chips" id="edchips"></div>
   <div class="artists" id="artists"></div>
 </section>
 
 <section id="moments">
-  <div class="kicker">Depuis @sundaymusic.ofc</div>
+  <div class="kicker" data-en="From @sundaymusic.ofc">Depuis @sundaymusic.ofc</div>
   <h2>Mo<em>ments</em></h2>
   <div class="chips" id="places"></div>
   <div class="moments" id="feed"></div>
+    <div class="card" style="margin-top:14px">
+    <div class="kicker" data-en="Official gallery">Galerie officielle</div>
+    <p style="font-size:14px;margin:4px 0 10px">Toutes les photos HD du photographe, édition par édition, à télécharger et partager.</p>
+    <button class="btn sm" data-toast="Version officielle : la galerie HD de chaque édition s'ouvre ici.">📸 Voir la galerie</button>
+  </div>
 </section>
 
 <section id="infos">
-  <div class="kicker">Le jour J</div>
-  <h2>Live &amp; <em>infos</em></h2>
-  <div class="card live">
-    <div class="kicker">Programme en direct</div>
-    <div id="sets"></div>
-    <button class="stamp" id="alerts" aria-pressed="false">🔔 Me prévenir avant chaque set</button>
-    <p class="note">Exemple avec le line-up de l'aéroport 2026, calé sur l'heure de ton téléphone.</p>
+  <div class="kicker" data-en="On the day">Le jour J</div>
+  <h2 data-en="Live &amp; <em>info</em>">Live &amp; <em>infos</em></h2>
+
+  <div class="ticket">
+    <div class="tk-main">
+      <div class="kicker" data-en="My ticket · example">Mon billet · exemple</div>
+      <h3>Aéroport de Montpellier</h3>
+      <p>Dim. 13 sept. 2026 · 13 h → 1 h</p>
+      <div class="tk-grid"><div><span>Pass</span><b>Journée</b></div><div><span>Entrée</span><b>Porte B</b></div><div><span>N°</span><b>004218</b></div></div>
+    </div>
+    <div class="tk-stub"><img src="qr-demo.svg" alt="QR code du billet (exemple)"><small>À montrer à l'entrée</small></div>
   </div>
-  <h3 class="sub">Infos pratiques</h3>
+  <div class="row">
+    <button class="btn sm" data-toast="Version officielle : le billet s'ajoute à Apple Wallet et Google Wallet.">＋ Ajouter au portefeuille</button>
+    <button class="btn ghost sm" data-toast="Version officielle : transfert ou revente du billet à un ami, en toute sécurité.">Transférer à un ami</button>
+  </div>
+
+  <div class="card meteo"><div class="ico" id="m-ico">🌤️</div><div><div class="kicker" id="m-day">Météo de dimanche</div><b id="m-temp">…</b><p id="m-tip">Montpellier · chargement…</p></div></div>
+
+  <div class="card live" style="margin-top:16px">
+    <div class="kicker" data-en="Live schedule">Programme en direct</div>
+    <div class="seg"><button class="chip on" data-mine="0" data-en="All">Tout</button><button class="chip" data-mine="1" data-en="★ My schedule">★ Mon programme</button></div>
+    <div id="sets"></div>
+    <button class="stamp" id="alerts" aria-pressed="false">🔔 Me prévenir 10 min avant mes artistes</button>
+    <p class="note">Touche ★ pour composer ton programme. Exemple avec le line-up de l'aéroport 2026, calé sur l'heure de ton téléphone.</p>
+  </div>
+
+  <h3 class="sub" data-en="Site map">Plan du site</h3>
+  <div class="card map">
+    <svg viewBox="0 0 340 230" role="img" aria-label="Plan du site de l'aéroport (exemple)">
+      <rect x="2" y="2" width="336" height="226" rx="18" fill="#efe2cd"/>
+      <path d="M-10 150 L350 92 L350 132 L-10 190Z" fill="#9a9086"/>
+      <path d="M-10 170 L350 112" stroke="#f3b259" stroke-width="2" stroke-dasharray="10 8"/>
+      <text class="lbl" x="250" y="118" transform="rotate(-9 250 118)" style="fill:#efe2cd">TARMAC</text>
+      <rect x="40" y="26" width="120" height="44" rx="6" fill="#5e4130"/>
+      <text class="lbl" x="100" y="52" style="fill:#fffaf1">STAGE A320</text>
+      <path d="M250 22 L290 70 L210 70Z" fill="#a5583a"/>
+      <text class="lbl" x="250" y="84">TIPI STAGE</text>
+      <rect x="130" y="196" width="80" height="24" rx="6" fill="#1d1814"/>
+      <text class="lbl" x="170" y="212" style="fill:#fffaf1">ENTRÉE</text>
+      <g class="pt" data-k="bar1"><circle cx="186" cy="48" r="13"/><text x="186" y="48">🍹</text></g>
+      <g class="pt" data-k="eau"><circle cx="74" cy="104" r="13"/><text x="74" y="104">💧</text></g>
+      <g class="pt" data-k="wc"><circle cx="300" cy="166" r="13"/><text x="300" y="166">🚻</text></g>
+      <g class="pt" data-k="secours"><circle cx="248" cy="190" r="13"/><text x="248" y="190">⛑️</text></g>
+      <g class="pt" data-k="vestiaire"><circle cx="96" cy="196" r="13"/><text x="96" y="196">🧥</text></g>
+      <g class="pt" data-k="navettes"><circle cx="34" cy="214" r="13"/><text x="34" y="214">🚌</text></g>
+      <g class="pt" data-k="bar2"><circle cx="300" cy="104" r="13"/><text x="300" y="104">🍔</text></g>
+    </svg>
+    <p id="mapinfo">Touche un point du plan.</p>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <div class="kicker" data-en="Find my crew">Retrouver ma bande</div>
+    <label for="rdv" style="font-size:14px;display:block;margin-top:6px">Point de rendez-vous</label>
+    <select id="rdv"></select>
+    <div class="row"><button class="btn sm" id="rdv-share">📍 Envoyer le RDV</button>
+    <button class="btn ghost sm" data-toast="Version officielle : ta bande te voit sur le plan, jusqu'à la fin de la journée seulement.">Partager ma position</button></div>
+  </div>
+
+  <div class="card help">
+    <b data-en="Need help?">Besoin d'aide ?</b>
+    <p class="note" style="color:var(--wood)">Une équipe de secours est présente de l'ouverture à la fermeture.</p>
+    <ul><li>Bois de l'eau : points d'eau gratuits sur le site.</li><li>Pause à l'ombre si tu as chaud ou la tête qui tourne.</li><li>Un ami ne va pas bien ? Ne le laisse pas seul.</li></ul>
+    <div class="row"><a class="btn red sm" href="tel:112">📞 Appeler le 112</a><button class="btn ghost sm" id="findhelp">⛑️ Où est le secours ?</button></div>
+  </div>
+
+  <h3 class="sub" data-en="Getting home">Retour à la maison</h3>
+  <div class="card">
+    <div id="buses"></div>
+    <p class="note">Navettes vers Montpellier centre (gare Saint-Roch). Exemple d'horaires.</p>
+    <button class="stamp" data-toast="Version officielle : covoiturage entre festivaliers, par ville de départ.">🚗 Trouver un covoiturage</button>
+  </div>
+
+  <h3 class="sub" data-en="Practical info">Infos pratiques</h3>
   <div id="faq"></div>
   <p class="note">Exemple : le gérant remplit ces infos depuis son espace.</p>
   <a class="card shop" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener"><span>🛍️</span><div><b>Boutique officielle</b><p>Le merch Sunday Music, à un clic.</p></div></a>
-  <h3 class="sub">Nos partenaires</h3>
+  <div class="card" style="margin-top:10px;background:linear-gradient(150deg,#fffaf1,#fbe3c7)">
+    <div class="kicker" data-en="Partner contest · example">Jeu concours partenaire · exemple</div>
+    <h3 style="font-size:19px;margin:4px 0">🎁 2 pass backstage à gagner</h3>
+    <p class="note" style="margin-top:0">Offert par « Votre marque ici ». Tirage au sort à 20 h.</p>
+    <button class="stamp" id="contest" aria-pressed="false">Je participe</button>
+  </div>
+  <h3 class="sub" data-en="Our partners">Nos partenaires</h3>
   <div class="partners"><div>Votre logo ici</div><div>Votre logo ici</div><div>Votre logo ici</div></div>
   <p class="note">Exemple d'espace partenaire, vendu par le festival à ses sponsors.</p>
+</section>
+
+<section id="gerant">
+  <div class="kicker">Espace gérant · exemple</div>
+  <h2>Tableau de <em>bord</em></h2>
+  <div class="stats">
+    <div class="card"><b>8 412</b><span>pré-inscrits aux préventes</span></div>
+    <div class="card"><b>3 105</b><span>passeports actifs</span></div>
+    <div class="card"><b>64 %</b><span>ouvrent les alertes</span></div>
+  </div>
+  <div class="card gcard">
+    <div class="kicker">Affluence en direct · exemple</div>
+    <b style="font:800 22px var(--serif)">11 240 <span style="font-size:14px;color:var(--mute)">/ 15 000 entrées</span></b>
+    <div class="gauge"><i style="width:75%"></i></div>
+    <div class="zone"><span>Stage A320</span><b>🔴 Saturée</b></div>
+    <div class="zone"><span>Tipi Stage</span><b>🟢 Fluide</b></div>
+    <div class="zone"><span>Bars</span><b>🟠 Attente 10 min</b></div>
+    <div class="zone"><span>Navettes</span><b>🟢 Fluide</b></div>
+  </div>
+  <div class="card gcard"><div class="kicker">D'où viennent les fans</div><div id="g-villes"></div></div>
+  <div class="card gcard"><div class="kicker">Artistes les plus attendus (★)</div><div id="g-artistes"></div></div>
+  <div class="card gcard">
+    <div class="kicker">Envoyer une notification</div>
+    <label for="g-who" style="font-size:14px">Destinataires</label>
+    <select id="g-who"><option value="8412">Tous les fans</option><option value="2140">Fans qui ont mis ★ ANOTR</option><option value="3196">Fans de Montpellier</option><option value="1054">Liste d'attente</option></select>
+    <textarea id="g-msg">Les préventes Clos de Provence ouvrent demain à 18 h, rien que pour vous 🌞</textarea>
+    <button class="btn sm" id="g-send">Envoyer à 8 412 fans</button>
+  </div>
+  <div class="card gcard">
+    <div class="kicker">Passeports à l'entrée</div>
+    <p style="font-size:14px">L'équipe scanne le QR du fan : l'édition est validée et son niveau monte (prévente prioritaire, réduction boutique…).</p>
+    <button class="btn ghost sm" style="margin-top:10px" data-toast="Version officielle : le scanner s'ouvre avec l'appareil photo du téléphone.">📷 Ouvrir le scanner</button>
+  </div>
+  <div class="card gcard">
+    <div class="kicker">Avis après l'événement</div>
+    <b style="font:800 26px var(--serif)">4,7 / 5</b> <span class="note">· 1 932 avis</span>
+    <p class="quote">« Le coucher de soleil sur le tarmac, inoubliable. »</p>
+    <p class="quote">« Prévoir plus de navettes à 1 h. »</p>
+  </div>
+  <div class="card gcard">
+    <div class="kicker">Jeu concours partenaire</div>
+    <p style="font-size:14px"><b>1 284</b> participants · code promo partenaire utilisé <b>312</b> fois.</p>
+  </div>
+  <div class="card gcard">
+    <div class="kicker">Mes inscrits</div>
+    <p style="font-size:14px;margin-bottom:10px">Fichier des fans qui ont accepté d'être contactés, prêt pour la newsletter.</p>
+    <button class="btn ghost sm" id="g-export">⬇ Exporter (CSV)</button>
+  </div>
+  <p class="note">Chiffres fictifs pour la démonstration.</p>
+  <button class="gerant-link" data-go="home">← Retour à l'app</button>
+</section>
+<section id="moi">
+  <div class="kicker" data-en="My space">Mon espace</div>
+  <h2>Mon <em>Sunday</em></h2>
+  <div class="passport" style="margin-bottom:14px">
+    <div class="kicker" data-en="My profile">Mon profil</div>
+    <div class="lvl" id="me-lvl"></div>
+    <small id="me-sum"></small>
+  </div>
+  <div class="me-grid">
+    <button data-jump="ticket"><span>🎫</span><b data-en="My ticket">Mon billet</b></button>
+    <button data-jump="prog"><span>★</span><b data-en="My schedule">Mon programme</b></button>
+    <button data-jump="pass"><span>📍</span><b data-en="My passport">Mon passeport</b></button>
+  </div>
+  <h3 class="sub" data-en="Settings">Réglages</h3>
+  <div class="card">
+    <div class="setting"><span>🔔 Alertes avant mes artistes</span><button data-jump="prog" id="me-alerts"></button></div>
+    <div class="setting"><span>🎫 Préventes en avant-première</span><button data-jump="home" id="me-presale"></button></div>
+    <div class="setting"><span>🌐 Langue / Language</span><button id="me-lang">English</button></div>
+    <div class="setting"><span>🗑️ Effacer mes données</span><button class="danger" id="me-reset">Effacer</button></div>
+  </div>
+  <p class="note">Tes données (passeport, favoris, votes) restent sur ce téléphone : rien n'est envoyé.</p>
+  <button class="gerant-link" data-go="gerant" data-en="Organiser area (demo) →">Espace gérant (démo) →</button>
 </section>
 
 <footer>Données reprises du compte Instagram public @sundaymusic.ofc · octobre 2026</footer>
 </main>
 
 <nav>
-  <button data-tab="home" class="on">Accueil</button>
-  <button data-tab="editions">Éditions</button>
+  <button data-tab="home" class="on" data-en="Home">Accueil</button>
+  <button data-tab="editions" data-en="Editions">Éditions</button>
   <button data-tab="lineup">Line-up</button>
   <button data-tab="moments">Moments</button>
-  <button data-tab="infos">Jour J</button>
+  <button data-tab="infos" data-en="Event day">Jour J</button>
+  <button data-tab="moi" data-en="Me">Moi</button>
 </nav>
+<div id="toast" role="status" aria-live="polite"></div>
+<button id="sunny-btn" aria-label="Sunny, ta guide : visite de l'app">👩🏽‍🎤<img src="sunny/avatar.jpg" alt="" onerror="this.remove()"></button>
+<div id="sunny" role="dialog" aria-label="Sunny, visite guidée">
+  <div class="who"><span>👩🏽‍🎤</span><div><b>Sunny</b><small>ta guide Sunday Music</small></div>
+    <button id="sunny-voice" aria-label="Couper ou remettre la voix">🔊</button><button id="sunny-x" aria-label="Fermer">✕</button></div>
+  <div class="body"><video id="sunny-vid" playsinline hidden></video><p id="sunny-txt" aria-live="polite"></p></div>
+  <div class="row"><button class="btn ghost sm" id="sunny-prev">‹ Retour</button><button class="btn sm" id="sunny-next">Suivant ›</button><span class="n" id="sunny-n"></span></div>
+</div>
 
 <script>
 const IG = 'https://www.instagram.com/';
+let en = false; // langue (bouton EN du bandeau)
 
 // Éditions, de la plus récente à la plus ancienne
 const EDITIONS = [
-  {id:'airport26', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
+  {id:'airport26', post:'p/DdRqsyQDLav', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
    text:'15 000 personnes sur le tarmac, de 13 h à 1 h. Le plus gros show de l\'année.',
    who:['ANOTR','AMOR','Silvie Loto','ALCI','Soubeiran','Casa Mata']},
-  {id:'lunel26', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
-   text:'Retour à la maison pour 12 h de show. Plus de 8 000 pré-inscrits.', who:['Mochakk']},
-  {id:'nimes26', ico:'🎻', when:'Printemps 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
+  {id:'lunel26', post:'p/DafYP3FjNie', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
+   text:'Retour à la maison pour 12 h de show. Plus de 8 000 pré-inscrits.', who:['Mochakk','Soubeiran','Mathis Bouloc','Tibo KSRG','Solarce Brothers','Mamba Skar']},
+  {id:'nimes26', post:'p/DYNN6ljDIyL', ico:'🎻', when:'8 mai 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
    text:'Premier show orchestral de Black Coffee en Europe. 14 000 danseurs.', who:['Black Coffee']},
-  {id:'dune26', ico:'🌞', when:'5 avr. 2026', title:'La Dune · 4ᵉ édition', place:'Club',
-   text:'Le club ouvert en pleine journée : club, patio et rooftop Terrazza.', who:[]},
-  {id:'origins26', ico:'🏠', when:'Début 2026', title:'Origins by Sunday', place:'Club',
+  {id:'dune26', post:'reel/DUnLV0XDP35', ico:'🌞', when:'5 avr. 2026', title:'La Dune · 4ᵉ édition', place:'Club',
+   text:'Le club ouvert en pleine journée : club, patio et rooftop Terrazza.', who:['Claptone','Soubeiran','Tibo KSRG','Mathis Bouloc','Casa Mata']},
+  {id:'origins26', post:'p/DUlcmVzDKdA', ico:'🏠', when:'Début 2026', title:'Origins by Sunday', place:'Club',
    text:'Retour aux soirées en petit comité des débuts. Sold out.', who:[]},
-  {id:'dec25', ico:'❤️‍🔥', when:'Déc. 2025', title:'Dernier dimanche de 2025', place:'Club',
+  {id:'dec25', post:'p/DS2uA6mjLbv', ico:'❤️‍🔥', when:'Déc. 2025', title:'Dernier dimanche de 2025', place:'Club',
    text:'La soirée de clôture d\'une année folle.', who:[]},
-  {id:'airport25', ico:'✈️', when:'Sept. 2025', title:'Aéroport de Montpellier', place:'Aéroport',
-   text:'12 000 personnes, sold out. Tipi Stage et première scène AMOR.', who:['Chris Stussy','AMOR']},
-  {id:'eiffel25', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
+  {id:'airport25', post:'p/DOti-fTjOup', ico:'✈️', when:'14 sept. 2025', title:'Aéroport de Montpellier · 2ᵉ édition', place:'Aéroport',
+   text:'12 000 personnes, sold out. Tipi Stage et première scène AMOR.', who:['Chris Stussy','Prospa','AMOR','Matisa']},
+  {id:'dune25b', post:'', ico:'🌴', when:'13 juil. 2025', title:'La Dune · édition d\'été', place:'Club',
+   text:'Retour à La Dune en plein été.', who:['Ben Sterling']},
+  {id:'eiffel25', post:'reel/DRaE1VeDFRh', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
    text:'Sunday Music prend le premier étage de la Tour Eiffel.', who:['Carlita']},
+  {id:'dune25', post:'', ico:'🌞', when:'20 avr. 2025', title:'La Dune × Terrazza', place:'Club',
+   text:'Club, rooftop et patio, de jour.', who:['Alex Wann','Cosmic Boys','Soubeiran','Tibo KSRG','Mathis Bouloc']},
+  {id:'airport24', post:'p/DB9RSIzIHTp', ico:'✈️', when:'2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
+   text:'La première sur le tarmac : plus de 9 000 personnes, sold out.', who:[]},
 ];
 
 const LEVELS = [[0,'Curieux·se','Coche les éditions où tu étais.'],[1,'Newcomer','Bienvenue dans la famille.'],
   [3,'Regular','Tu connais le chemin du dimanche.'],[5,'Sunday Family','Tu fais partie des murs.'],[8,'Légende','Tu as tout fait. Respect.']];
 
-// Artistes : head = tête d'affiche
+// Line-up : pages Shotgun de chaque édition (lues le 11/10/2026). head = tête d'affiche, ig = compte Instagram connu
 const ARTISTS = [
   {n:'ANOTR', ig:'anotr.music', ed:'Aéroport 2026', head:1},
-  {n:'Black Coffee', ig:'realblackcoffee', ed:'Arènes de Nîmes 2026', head:1},
-  {n:'Mochakk', ig:'mochakk', ed:'Arènes de Lunel 2026', head:1},
-  {n:'Chris Stussy', ig:'chrisstussydj', ed:'Aéroport 2025'},
+  {n:'Black Coffee', ig:'realblackcoffee', ed:'Nîmes 2026', head:1},
+  {n:'Mochakk', ig:'mochakk', ed:'Lunel 2026', head:1},
+  {n:'Chris Stussy', ig:'chrisstussydj', ed:'Aéroport 2025', head:1},
+  {n:'Claptone', ed:'La Dune 2026', head:1},
+  {n:'Soubeiran', ig:'soubeiran00', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Tibo KSRG', ig:'tibo_ksrg', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Mathis Bouloc', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Carlita', ig:'carlitamusic', ed:'Tour Eiffel 2025'},
-  {n:'AMOR', ig:'this_is_amor', ed:'Stage A320 · 2025 & 2026'},
+  {n:'Prospa', ed:'Aéroport 2025'},
+  {n:'Ben Sterling', ed:'La Dune 2025'},
+  {n:'Alex Wann', ed:'La Dune 2025'},
+  {n:'Cosmic Boys', ed:'La Dune 2025'},
+  {n:'AMOR', ig:'this_is_amor', ed:'Aéroport 2026 · Aéroport 2025'},
   {n:'Silvie Loto', ig:'silvieloto', ed:'Aéroport 2026'},
   {n:'ALCI', ig:'alcimusiq', ed:'Aéroport 2026'},
-  {n:'Soubeiran', ig:'soubeiran00', ed:'Aéroport 2026'},
-  {n:'Tibo KSRG', ig:'tibo_ksrg', ed:'Aéroport 2026'},
-  {n:'Casa Mata', ig:'casamata_music', ed:'Stage A320 · 2026'},
-  {n:'DJ Jean Ba', ig:'djjeanba', ed:'Aéroport 2026'},
-  {n:'Amrita', ed:'Stage A320 · 2026'},
-  {n:'Bellamour', ed:'Stage A320 · 2026'},
-  {n:'Fleur', ed:'Stage A320 · 2026'},
-  {n:'L\'Amorosso', ed:'Stage A320 · 2026'},
-  {n:'Messina b2b Auguste', ed:'Stage A320 · 2026'},
-  {n:'SOWA', ed:'Stage A320 · 2026'},
+  {n:'Casa Mata', ig:'casamata_music', ed:'Aéroport 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Miss Airie', ed:'Aéroport 2026'},
+  {n:'Black Accord', ed:'Aéroport 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Charlotte Newman', ed:'Aéroport 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Thöm', ed:'Aéroport 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'DJ Jean Ba', ig:'djjeanba', ed:'Aéroport 2026 · Lunel 2026 · La Dune 2026'},
+  {n:'ZakHarry', ed:'Aéroport 2026 · Lunel 2026 · La Dune 2026'},
+  {n:'Bellamour', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Ekiz', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Flo Masset', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Amrita', ed:'Aéroport 2026'},
+  {n:'L\'Amorosso', ed:'Aéroport 2026'},
+  {n:'SOWA', ed:'Aéroport 2026'},
+  {n:'Messina', ed:'Aéroport 2026'},
+  {n:'Samy El.A', ed:'Aéroport 2026'},
+  {n:'Nico Rodas', ed:'Aéroport 2026'},
+  {n:'Martial', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Rooléh', ed:'Aéroport 2026'},
+  {n:'Matisa', ed:'Aéroport 2025'},
+  {n:'Alex Vergnet', ed:'Aéroport 2025 · La Dune 2025'},
+  {n:'Vigouroux', ed:'Aéroport 2025 · La Dune 2025'},
+  {n:'Alauze', ed:'Aéroport 2025'},
+  {n:'Attalin', ed:'Aéroport 2025'},
+  {n:'Bouni', ed:'Aéroport 2025'},
+  {n:'Greg Herma', ed:'Aéroport 2025'},
+  {n:'Delon', ed:'Aéroport 2025'},
+  {n:'Solarce Brothers', ed:'Lunel 2026'},
+  {n:'Mamba Skar', ed:'Lunel 2026'},
+  {n:'MASS', ed:'Lunel 2026'},
+  {n:'nocapz.', ed:'Lunel 2026'},
+  {n:'Acurlaz', ed:'Lunel 2026'},
+  {n:'Allon', ed:'La Dune 2026'},
+  {n:'ØBY', ed:'La Dune 2026'},
+  {n:'Tom Paroux', ed:'La Dune 2026'},
+  {n:'South Connection Records', ed:'La Dune 2026 · La Dune 2025'},
+  {n:'Moarasiá', ed:'La Dune 2025'},
+  {n:'Teus', ed:'La Dune 2025'},
+  {n:'Hugo Brancato', ed:'La Dune 2025'},
+  {n:'Lucas Villanova', ed:'La Dune 2025'},
+  {n:'Hugo Cstln', ed:'La Dune 2025'},
+  {n:'PAWSA', ed:'Éditions précédentes'},
+  {n:'Francis Mercier', ed:'Éditions précédentes'},
+  {n:'Kölsch', ed:'Éditions précédentes'},
+  {n:'Nitefreak', ed:'Éditions précédentes'},
+  {n:'Franc Fala', ed:'Éditions précédentes'},
+  {n:'Ahmed Spins', ed:'Éditions précédentes'},
 ];
 
 // Posts Instagram (liens vérifiés le 11/10/2026)
@@ -292,17 +621,38 @@ const POSTS = [
   ['p/DS2uA6mjLbv','Tour Eiffel','Merci pour 2025 ! De la Tour Eiffel à l\'aéroport ❤️'],
   ['reel/DRaE1VeDFRh','Tour Eiffel','Le 25 mai, on a pris le 1er étage de la Tour Eiffel.'],
   ['p/DOti-fTjOup','Aéroport','12 000 personnes. Une édition sold out ❤️'],
+  ['p/DdPVzuVjJ1-','Aéroport','Nothing equals a day like this 🌴'],
+  ['reel/DOOftJCDBbm','Aéroport','Remember édition 2024 🌴'],
+  ['p/DB9RSIzIHTp','Aéroport','Throwback : la toute première à l\'aéroport ✈️'],
+  ['reel/DTf4aHoDEbf','Arènes','Sunday Music × Garten Project : une expérience hors du temps.'],
+  ['reel/DKH3-koIMY9','Tour Eiffel','We made it to the Eiffel Tower 🇫🇷'],
+  ['p/DHZDX9-ok5g','Tour Eiffel','Le 25 mai, Carlita en DJ set exclusif au 1er étage.'],
 ];
 
-const PALETTE = {'Aéroport':['#2c4a3a','#14241b'],'Arènes':['#4b6b4f','#1e3325'],'Club':['#1f2a23','#0b0f0c'],'Tour Eiffel':['#6f8f6b','#2f4733']};
+const PALETTE = {'Aéroport':['#86b3d6','#f0a868'],'Arènes':['#1b2340','#c8582e'],'Club':['#3a2b3f','#b5603f'],'Tour Eiffel':['#e9c48a','#a5583a']};
 const grad = k => `linear-gradient(150deg,${PALETTE[k][0]},${PALETTE[k][1]})`;
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 // Navigation
-document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+function go(tab) {
   document.querySelectorAll('nav button, section').forEach(e => e.classList.remove('on'));
-  b.classList.add('on'); document.getElementById(b.dataset.tab).classList.add('on'); scrollTo(0, 0);
-});
+  document.querySelector(`nav [data-tab=${tab}]`)?.classList.add('on');
+  document.getElementById(tab).classList.add('on'); scrollTo(0, 0);
+  if (tab === 'moi') renderMe();
+  if (tab === 'moments') fitSquares();
+}
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => go(b.dataset.tab));
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+// lien direct vers un onglet : ?tab=infos, ?tab=moments…
+addEventListener('DOMContentLoaded', () => { const t = new URLSearchParams(location.search).get('tab'); if (t && document.getElementById(t)) go(t); });
+
+// Petit message en bas d'écran (boutons de la version officielle)
+let toastT;
+function toast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3200);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-toast]'); if (b) toast(b.dataset.toast); });
 
 // Compte à rebours jusqu'au prochain dimanche 13 h
 function nextSunday(now) {
@@ -313,7 +663,7 @@ function nextSunday(now) {
 }
 function tick() {
   let s = Math.floor((nextSunday(new Date()) - new Date()) / 1000);
-  const parts = [[Math.floor(s / 86400), 'jours'], [Math.floor(s % 86400 / 3600), 'heures'], [Math.floor(s % 3600 / 60), 'min'], [s % 60, 'sec']];
+  const parts = [[Math.floor(s / 86400), en ? 'days' : 'jours'], [Math.floor(s % 86400 / 3600), en ? 'hours' : 'heures'], [Math.floor(s % 3600 / 60), 'min'], [s % 60, 'sec']];
   document.getElementById('cd').innerHTML = parts.map(([v, l]) => `<div><b>${String(v).padStart(2, '0')}</b><span>${l}</span></div>`).join('');
 }
 tick(); setInterval(tick, 1000);
@@ -327,6 +677,11 @@ function renderPassport() {
   document.getElementById('lvl').textContent = `${lv[1]} · ${n}/${EDITIONS.length}`;
   document.getElementById('barfill').style.width = (n / EDITIONS.length * 100) + '%';
   document.getElementById('lvlhint').textContent = lv[2] + (next ? ` Encore ${next[0] - n} pour devenir ${next[1]}.` : '');
+  const mine = EDITIONS.filter(e => been.has(e.id));
+  document.getElementById('souv').innerHTML = mine.length
+    ? `<p style="font:700 22px var(--hand);color:#22305a">Tu as vécu ${mine.length} dimanche${mine.length > 1 ? 's' : ''} avec nous.</p>` +
+      mine.map(e => `<a href="${IG}sundaymusic.ofc/${e.post ? e.post + '/' : ''}" target="_blank" rel="noopener"><span>${e.ico} ${esc(e.title)}</span><span>📸 ↗</span></a>`).join('')
+    : '<p class="note">Coche « J\'y étais » sur tes éditions : tes souvenirs apparaîtront ici.</p>';
 }
 document.getElementById('timeline').innerHTML = EDITIONS.map(e => `
   <div class="ed card" data-ico="${e.ico}">
@@ -344,27 +699,37 @@ document.getElementById('timeline').onclick = ev => {
 renderPassport();
 
 // Line-up
-const artistColor = a => a.head ? grad('Arènes') : a.ed.includes('A320') ? grad('Aéroport') : a.ed.includes('Eiffel') ? grad('Tour Eiffel') : grad('Club');
-function renderArtists(q = '') {
-  const list = ARTISTS.filter(a => a.n.toLowerCase().includes(q.toLowerCase()));
+const artistColor = a => a.head ? grad('Arènes') : a.ed.includes('Aéroport') ? grad('Aéroport') : a.ed.includes('Eiffel') ? grad('Tour Eiffel') : grad('Club');
+const ED_FILTERS = ['Tous', 'Aéroport 2026', 'Lunel 2026', 'La Dune 2026', 'Aéroport 2025', 'La Dune 2025', 'Sunday Crew', 'Éditions précédentes'];
+let edf = 'Tous';
+function renderArtists(q = document.getElementById('q').value.trim()) {
+  document.getElementById('edchips').innerHTML = ED_FILTERS.map(f => `<button class="chip${f === edf ? ' on' : ''}" data-f="${f}">${f}</button>`).join('');
+  const list = ARTISTS.filter(a => a.n.toLowerCase().includes(q.toLowerCase()) && (edf === 'Tous' || a.ed.includes(edf)));
   document.getElementById('artists').innerHTML = list.length ? list.map(a => {
     const href = a.ig ? IG + a.ig + '/' : IG + 'explore/search/keyword/?q=' + encodeURIComponent(a.n);
-    return `<a class="artist${a.head && !q ? ' head' : ''}" style="background:${artistColor(a)}" href="${href}" target="_blank" rel="noopener">
+    return `<a class="artist${a.head && !q && edf === 'Tous' ? ' head' : ''}" style="background:${artistColor(a)}" href="${href}" target="_blank" rel="noopener">
       <b>${esc(a.n)}</b><span>${esc(a.ed)}</span><span>${a.ig ? '@' + a.ig : 'Rechercher sur Instagram'}</span></a>`;
   }).join('') : '<p class="empty" style="grid-column:span 2">Aucun artiste trouvé.</p>';
 }
 document.getElementById('q').oninput = e => renderArtists(e.target.value.trim());
 renderArtists();
+document.getElementById('edchips').onclick = ev => { const b = ev.target.closest('.chip'); if (b) { edf = b.dataset.f; renderArtists(); } };
 
 // Moments
 let place = 'Tous';
 function renderFeed() {
   const places = ['Tous', ...Object.keys(PALETTE)];
   document.getElementById('places').innerHTML = places.map(p => `<button class="chip${p === place ? ' on' : ''}" data-p="${p}">${p}</button>`).join('');
-  document.getElementById('feed').innerHTML = POSTS.filter(p => place === 'Tous' || p[1] === place).map(([path, pl, cap]) =>
-    `<a class="mo" style="background:${grad(pl)}" href="${IG}sundaymusic.ofc/${path}/" target="_blank" rel="noopener">
-      <div class="tag">${path.startsWith('reel') ? '▶ Reel' : '◻ Photo'} · ${pl}</div><p>${esc(cap)}</p><small>Voir sur Instagram ↗</small></a>`).join('');
+  document.getElementById('feed').innerHTML = POSTS.filter(p => place === 'Tous' || p[1] === place).map(([path, pl, cap], k) =>
+    `<div class="mo"><div class="ph" style="background:${grad(pl)}">
+      <iframe src="${IG}${path}/embed/" loading="lazy" scrolling="no" title="Post Instagram de Sunday Music"></iframe></div>
+      <div class="edge">Sunday 400 ▸ ${k + 1}A · ${path.startsWith('reel') ? 'reel' : pl}</div>
+      <a href="${IG}sundaymusic.ofc/${path}/" target="_blank" rel="noopener">${esc(cap)}</a></div>`).join('');
+  fitSquares();
 }
+// taille des images : l'intégration fait 326 px de large, on la réduit à la largeur d'une image de pellicule
+function fitSquares() { const m = document.querySelector('#feed .ph'); if (m && m.clientWidth) document.getElementById('feed').style.setProperty('--k', m.clientWidth / 326); }
+addEventListener('resize', fitSquares);
 document.getElementById('places').onclick = ev => { const b = ev.target.closest('.chip'); if (b) { place = b.dataset.p; renderFeed(); } };
 renderFeed();
 
@@ -377,15 +742,119 @@ function liveIndex(d) {
   if (m < START || m >= END) return -1;
   return SETS.reduce((i, [t], k) => { const [h, mn] = t.split(':').map(Number); return h * 60 + mn <= m ? k : i; }, 0);
 }
+let favs, mine = false;
+try { favs = new Set(JSON.parse(localStorage.getItem('sunday-favs') || '[]')); } catch { favs = new Set(); }
 function renderSets() {
   const i = liveIndex(new Date());
-  document.getElementById('sets').innerHTML = SETS.map(([t, n], k) => {
+  const rows = SETS.map(([t, n], k) => {
+    if (mine && !favs.has(n)) return '';
     const cls = i < 0 ? '' : k < i ? ' past' : k === i ? ' now' : '';
     const badge = i < 0 ? '' : k === i ? 'En ce moment' : k === i + 1 ? 'Ensuite' : '';
-    return `<div class="set${cls}"><time>${t}</time><b>${esc(n)}</b>${badge ? `<span class="badge">${badge}</span>` : ''}</div>`;
+    return `<div class="set${cls}"><time>${t}</time><b>${esc(n)}</b>${badge ? `<span class="badge">${badge}</span>` : ''}${cls === ' past' ? `<button class="fav" style="font-size:16px;color:var(--wood)" data-toast="Version officielle : la liste des morceaux joués par ${esc(n)} s'affiche ici juste après son set." aria-label="Morceaux joués">🎵</button>` : ''}<button class="fav" data-n="${esc(n)}" aria-pressed="${favs.has(n)}" aria-label="Ajouter ${esc(n)} à mon programme">★</button></div>`;
   }).join('');
+  document.getElementById('sets').innerHTML = rows || '<p class="note">Touche ★ à côté d\'un artiste pour l\'ajouter à ton programme.</p>';
 }
+document.getElementById('sets').onclick = e => {
+  const b = e.target.closest('.fav[data-n]'); if (!b) return;
+  favs.has(b.dataset.n) ? favs.delete(b.dataset.n) : favs.add(b.dataset.n);
+  try { localStorage.setItem('sunday-favs', JSON.stringify([...favs])); } catch {}
+  renderSets();
+};
+document.querySelector('.seg').onclick = e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  mine = b.dataset.mine === '1';
+  document.querySelectorAll('.seg .chip').forEach(c => c.classList.toggle('on', c === b));
+  renderSets();
+};
 renderSets(); setInterval(renderSets, 60000);
+
+// Plan du site (exemple aéroport)
+const PLACES = {
+  bar1: '🍹 Bar principal, à côté de la Stage A320. Paiement par carte.',
+  bar2: '🍔 Food court : 6 stands, dont végétarien.',
+  eau: '💧 Point d\'eau gratuit. Gourdes autorisées (vides à l\'entrée).',
+  wc: '🚻 Toilettes, accessibles PMR.',
+  secours: '⛑️ Poste de secours, près de l\'entrée. Ouvert de 13 h à la fin.',
+  vestiaire: '🧥 Vestiaire, juste après l\'entrée. 3 € l\'article.',
+  navettes: '🚌 Départ des navettes vers Montpellier centre.',
+};
+function showPlace(k) {
+  document.querySelectorAll('.map .pt').forEach(g => g.classList.toggle('on', g.dataset.k === k));
+  document.getElementById('mapinfo').textContent = PLACES[k];
+}
+document.querySelector('.map svg').onclick = e => { const g = e.target.closest('.pt'); if (g) showPlace(g.dataset.k); };
+document.getElementById('findhelp').onclick = () => { showPlace('secours'); document.querySelector('.map').scrollIntoView({behavior: 'smooth', block: 'center'}); };
+
+// Retour : navettes (exemple)
+const BUSES = ['22:00', '23:00', '00:00', '00:45', '01:30'];
+document.getElementById('buses').innerHTML = BUSES.map((t, k) =>
+  `<div class="bus${k === BUSES.length - 1 ? ' last' : ''}"><span>🚌 Navette</span><b>${t}${k === BUSES.length - 1 ? ' · dernière' : ''}</b></div>`).join('');
+
+// Espace gérant (chiffres fictifs)
+const bars = (rows, unit) => {
+  const max = Math.max(...rows.map(r => r[1]));
+  return rows.map(([l, v]) => `<div class="hbar" title="${l} : ${v.toLocaleString('fr-FR')}${unit}"><span>${l}</span><i style="width:${v / max * 100}%"></i><span>${v.toLocaleString('fr-FR')}${unit}</span></div>`).join('');
+};
+document.getElementById('g-villes').innerHTML = bars([['Montpellier', 38], ['Étranger', 22], ['Nîmes', 14], ['Paris', 11], ['Marseille', 9], ['Lyon', 6]], ' %');
+document.getElementById('g-artistes').innerHTML = bars([['ANOTR', 2140], ['Mochakk', 1860], ['Black Coffee', 1720], ['Chris Stussy', 980], ['AMOR', 760]], '');
+
+// Sondage (base fictive + ton vote, mémorisé sur le téléphone)
+const POLL = [['Keinemusik', 412], ['Peggy Gou', 365], ['Solomun', 298], ['Retour de Mochakk', 240]];
+function renderPoll() {
+  let vote; try { vote = localStorage.getItem('sunday-poll'); } catch {}
+  const box = document.getElementById('poll');
+  if (vote == null) { box.innerHTML = POLL.map(([n], k) => `<button class="opt" data-k="${k}">${n}</button>`).join(''); return; }
+  const rows = POLL.map(([n, v], k) => [n, v + (k == vote ? 1 : 0), k == vote]);
+  const tot = rows.reduce((a, r) => a + r[1], 0);
+  box.innerHTML = rows.map(([n, v, me]) => `<div class="hbar${me ? ' me' : ''}"><span>${me ? '✓ ' : ''}${n}</span><i style="width:${v / rows[0][1] * 100}%"></i><span>${Math.round(v / tot * 100)} %</span></div>`).join('') +
+    `<p class="note">${tot.toLocaleString('fr-FR')} votes · merci !</p>`;
+}
+document.getElementById('poll').onclick = e => { const b = e.target.closest('.opt'); if (!b) return; try { localStorage.setItem('sunday-poll', b.dataset.k); } catch {} renderPoll(); };
+renderPoll();
+
+// Avis sur la dernière édition
+let note = 0;
+function renderStars() { document.getElementById('stars').innerHTML = [1, 2, 3, 4, 5].map(i => `<button class="${i <= note ? 'on' : ''}" data-i="${i}" aria-label="${i} sur 5">★</button>`).join(''); }
+document.getElementById('stars').onclick = e => { const b = e.target.closest('button'); if (b) { note = +b.dataset.i; renderStars(); } };
+document.getElementById('avis-send').onclick = () => toast(note ? `Merci pour ton ${note}/5 ! L'équipe lit tous les avis.` : 'Choisis d\'abord une note ★');
+renderStars();
+
+// Météo du prochain dimanche à Montpellier (Open-Meteo, gratuit, sans clé)
+function wIcon(c) { return c === 0 ? '☀️' : c <= 3 ? '⛅' : c <= 48 ? '🌫️' : c <= 67 ? '🌧️' : c <= 77 ? '❄️' : c <= 82 ? '🌦️' : '⛈️'; }
+(async () => {
+  const d = nextSunday(new Date()).toLocaleDateString('sv-SE');
+  try {
+    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=43.58&longitude=3.96&daily=weather_code,temperature_2m_max,uv_index_max&timezone=Europe%2FParis&start_date=${d}&end_date=${d}`);
+    const w = (await r.json()).daily;
+    document.getElementById('m-ico').textContent = wIcon(w.weather_code[0]);
+    document.getElementById('m-temp').textContent = Math.round(w.temperature_2m_max[0]) + ' °C';
+    document.getElementById('m-tip').textContent = 'Montpellier · ' + (w.uv_index_max[0] >= 6 ? 'UV forts : crème solaire et casquette 🧴' : w.weather_code[0] >= 51 ? 'Pense au K-way 🧥' : 'Grand beau, hydrate-toi 💧');
+  } catch { document.getElementById('m-tip').textContent = 'Montpellier · météo indisponible pour le moment'; }
+})();
+
+// Retrouver ma bande : point de RDV
+document.getElementById('rdv').innerHTML = Object.entries(PLACES).map(([k, v]) => `<option value="${k}">${v.split(',')[0].split('.')[0]}</option>`).join('');
+document.getElementById('rdv').onchange = e => showPlace(e.target.value);
+document.getElementById('rdv-share').onclick = async () => {
+  const txt = 'RDV Sunday Music : ' + PLACES[document.getElementById('rdv').value];
+  try { if (navigator.share) await navigator.share({text: txt}); else { await navigator.clipboard.writeText(txt); toast('RDV copié : colle-le dans ton groupe.'); } } catch {}
+};
+
+// Gérant : ciblage et export
+document.getElementById('g-who').onchange = e => document.getElementById('g-send').textContent = `Envoyer à ${(+e.target.value).toLocaleString('fr-FR')} fans`;
+document.getElementById('g-send').onclick = () => toast(`Démo : notification envoyée à ${(+document.getElementById('g-who').value).toLocaleString('fr-FR')} fans.`);
+document.getElementById('g-export').onclick = () => {
+  const csv = 'prenom;email;ville;preventes\nLéa;lea@example.com;Montpellier;oui\nTom;tom@example.com;Nîmes;oui\nInès;ines@example.com;Paris;non\n';
+  const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(new Blob(['﻿' + csv], {type: 'text/csv'})), download: 'inscrits-demo.csv'});
+  a.click(); toast('Démo : fichier d\'exemple téléchargé (3 fans fictifs).');
+};
+
+// FR / EN : titres, onglets et textes fixes (les textes des données restent en français)
+document.getElementById('lang').onclick = () => {
+  en = !en; document.documentElement.lang = en ? 'en' : 'fr';
+  document.getElementById('lang').textContent = en ? 'FR' : 'EN';
+  document.querySelectorAll('[data-en]').forEach(el => { el.dataset.fr ??= el.innerHTML; el.innerHTML = en ? el.dataset.en : el.dataset.fr; });
+};
 
 const FAQ = [
   ['🕐 Horaires', 'Ouverture des portes à 13 h, fin du show à 1 h.'],
@@ -405,7 +874,84 @@ function toggle(id, key, off, on) {
   show();
 }
 toggle('presale', 'sunday-presale', '🎫 Je me pré-inscris aux préventes', '✓ Pré-inscrit·e : tu seras prévenu·e en premier');
-toggle('alerts', 'sunday-alerts', '🔔 Me prévenir avant chaque set', '✓ Alertes activées');
+toggle('waitlist', 'sunday-waitlist', '⏳ Liste d\'attente si c\'est complet', '✓ Sur liste d\'attente : prévenu·e si une place se libère');
+toggle('contest', 'sunday-contest', 'Je participe', '✓ Tu participes, tirage à 20 h');
+toggle('alerts', 'sunday-alerts', '🔔 Me prévenir 10 min avant mes artistes', '✓ Alertes activées pour ton programme');
+
+// Onglet Moi : résumé, raccourcis, réglages
+const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+function renderMe() {
+  const n = been.size, lv = LEVELS.filter(l => n >= l[0]).pop();
+  document.getElementById('me-lvl').textContent = lv[1];
+  document.getElementById('me-sum').textContent = `${n} édition${n > 1 ? 's' : ''} · ${favs.size} artiste${favs.size > 1 ? 's' : ''} en ★ · ${stored('sunday-presale') === '1' ? 'pré-inscrit·e aux préventes ✓' : 'pas encore pré-inscrit·e'}`;
+  document.getElementById('me-alerts').textContent = stored('sunday-alerts') === '1' ? 'Activées ›' : 'Désactivées ›';
+  document.getElementById('me-presale').textContent = stored('sunday-presale') === '1' ? 'Inscrit·e ›' : 'S\'inscrire ›';
+  document.getElementById('me-lang').textContent = en ? 'Français' : 'English';
+}
+document.getElementById('moi').onclick = e => {
+  const b = e.target.closest('[data-jump]'); if (!b) return;
+  const j = b.dataset.jump;
+  if (j === 'pass') return go('editions');
+  if (j === 'home') { go('home'); return document.getElementById('presale').scrollIntoView({block: 'center'}); }
+  go('infos');
+  if (j === 'prog') document.querySelector('.seg [data-mine="1"]').click();
+  document.querySelector(j === 'ticket' ? '.ticket' : '.live').scrollIntoView({block: 'start'}); scrollBy(0, -12);
+};
+document.getElementById('me-lang').onclick = () => { document.getElementById('lang').click(); renderMe(); };
+document.getElementById('me-reset').onclick = () => {
+  if (!confirm('Effacer ton passeport, tes favoris, tes votes et tes réglages sur ce téléphone ?')) return;
+  try { Object.keys(localStorage).filter(k => k.startsWith('sunday-')).forEach(k => localStorage.removeItem(k)); } catch {}
+  location.reload();
+};
+
+// Sunny : visite guidée de l'app. Chaque étape joue sunny/1.mp4 … sunny/7.mp4 (vidéos HeyGen, voir sunny/LISEZ-MOI.md) ;
+// si la vidéo manque, le texte est lu par la voix du téléphone.
+// ponytail: textes écrits à l'avance ; une vraie IA qui répond aux questions demande un petit serveur avec une clé API
+const TOUR = [
+  ['home', "Coucou ! Moi c'est Sunny. Je vais te faire faire le tour de l'app Sunday Music, ça prend deux minutes. Alors ici, c'est l'accueil : t'as le compte à rebours jusqu'à dimanche, 13 heures… les préventes… et tous les liens Sunday, au même endroit."],
+  ['editions', "Là, ce sont les éditions. La Tour Eiffel, l'aéroport, les arènes… Tu coches celles où t'étais, et hop, ton passeport Sunday monte de niveau. Franchement, c'est addictif."],
+  ['lineup', "Le line-up ! Tous les artistes qui sont passés chez Sunday. Tu cliques sur un nom, ça t'ouvre direct son Instagram."],
+  ['moments', "Et ça, c'est mon onglet préféré : les moments. Les vraies photos, les vraies vidéos… comme une pellicule. Ça donne envie d'y retourner, non ?"],
+  ['infos', "Le jour J, l'app devient ton meilleur pote. Le programme en direct, ton billet, le plan du site, la météo… et même les navettes pour rentrer."],
+  ['moi', "Ici, c'est ton espace. Ton niveau, tes artistes favoris, tes réglages. Et tout reste sur ton téléphone, promis."],
+  ['gerant', "Et pour finir, côté organisateurs : un tableau de bord, des notifications ciblées, le fichier des fans. Voilà, t'as tout vu ! On se retrouve dimanche ?"],
+];
+let sunI = 0, sunVoice = true;
+const sunEl = id => document.getElementById(id);
+function sunSay(t) {
+  if (!sunVoice || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(t), vs = speechSynthesis.getVoices().filter(v => v.lang.startsWith('fr'));
+  u.voice = vs.find(v => /amélie|amelie|audrey|aurélie|marie|virginie|julie|denise|google fran/i.test(v.name)) || vs[0] || null;
+  u.lang = 'fr-FR'; u.pitch = 1.15; u.rate = 1.02; speechSynthesis.speak(u);
+}
+function sunShow(i) {
+  sunI = Math.max(0, Math.min(TOUR.length - 1, i));
+  const [tab, t] = TOUR[sunI], v = sunEl('sunny-vid');
+  go(tab); sunEl('sunny-txt').textContent = t; sunEl('sunny-n').textContent = `${sunI + 1}/${TOUR.length}`;
+  sunEl('sunny-prev').disabled = !sunI; sunEl('sunny-next').textContent = sunI === TOUR.length - 1 ? 'Terminer ✓' : 'Suivant ›';
+  window.speechSynthesis?.cancel();
+  v.src = `sunny/${sunI + 1}.mp4`; v.muted = !sunVoice;
+  const me = sunI; // ignore la réponse d'une étape déjà quittée (clics rapides)
+  v.hidden = false; // visible avant play() : Chrome met en pause une vidéo cachée
+  v.play().catch(e => {
+    if (me !== sunI) return;
+    // son bloqué par le navigateur → la vidéo part en muet (🔊 pour remettre le son)
+    if (e.name === 'NotAllowedError') { sunVoice = false; v.muted = true; sunEl('sunny-voice').textContent = '🔇'; return v.play(); }
+    v.hidden = true; sunSay(t);
+  });
+}
+function sunClose() { sunEl('sunny').classList.remove('on'); sunEl('sunny-btn').hidden = false; sunEl('sunny-vid').pause(); window.speechSynthesis?.cancel(); }
+sunEl('sunny-btn').onclick = () => { sunEl('sunny').classList.add('on'); sunEl('sunny-btn').hidden = true; sunShow(0); };
+sunEl('sunny-x').onclick = sunClose;
+sunEl('sunny-prev').onclick = () => sunShow(sunI - 1);
+sunEl('sunny-next').onclick = () => sunI === TOUR.length - 1 ? (go('home'), sunClose()) : sunShow(sunI + 1);
+sunEl('sunny-voice').onclick = () => {
+  sunVoice = !sunVoice; sunEl('sunny-voice').textContent = sunVoice ? '🔊' : '🔇';
+  const v = sunEl('sunny-vid'); v.muted = !sunVoice;
+  if (v.hidden) sunVoice ? sunSay(TOUR[sunI][1]) : speechSynthesis.cancel();
+};
+window.speechSynthesis?.getVoices(); // charge la liste des voix à l'avance
 
 // Auto-test : ?test dans l'URL
 if (location.search.includes('test')) {
@@ -418,6 +964,7 @@ if (location.search.includes('test')) {
   console.assert(liveIndex(new Date(2026, 8, 13, 22, 30)) === 4, '22 h 30 → ANOTR');
   console.assert(liveIndex(new Date(2026, 8, 14, 0, 30)) === 5, 'minuit et demi → dernier set');
   console.assert(liveIndex(new Date(2026, 8, 14, 1, 0)) === -1, '1 h → fini');
+  console.assert(TOUR.every(([t]) => document.getElementById(t)), 'Sunny : chaque étape pointe vers un onglet');
   console.log('selftest ok');
 }
 </script>

@@ -3,7 +3,7 @@
   "short_name": "Sunday",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0a110d",
-  "theme_color": "#0a110d",
+  "background_color": "#f4ecdf",
+  "theme_color": "#f4ecdf",
   "icons": [{"src": "logo.png", "sizes": "304x304", "type": "image/png"}]
 }
