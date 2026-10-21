@@ -188,6 +188,8 @@ textarea{width:100%;min-height:74px;border:1.5px solid var(--line);border-radius
 .poll button.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin-top:8px;font:800 14px var(--sans);color:var(--ink);cursor:pointer}
 .poll .hbar{grid-template-columns:110px 1fr 40px}
 .poll .hbar.me span:first-child{color:var(--orange);font-weight:800}
+.poll .other{display:flex;gap:8px;margin-top:8px}
+.poll .other input{flex:1;min-width:0;border:1.5px solid var(--orange);border-radius:12px;padding:10px 12px;font:600 14px var(--sans)}
 .souv a{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:14px}
 .souv a:last-child{border:0}
 .stars{display:flex;gap:4px;margin:6px 0 10px}
@@ -423,6 +425,7 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
   </div>
   <div class="card gcard"><div class="kicker">D'où viennent les fans</div><div id="g-villes"></div></div>
   <div class="card gcard"><div class="kicker">Artistes les plus attendus (★)</div><div id="g-artistes"></div></div>
+  <div class="card gcard"><div class="kicker">Artistes proposés par les fans · sondage « Autre »</div><div id="g-autres"></div></div>
   <div class="card gcard">
     <div class="kicker">Envoyer une notification</div>
     <label for="g-who" style="font-size:14px">Destinataires</label>
@@ -817,19 +820,42 @@ const bars = (rows, unit) => {
 document.getElementById('g-villes').innerHTML = bars([['Montpellier', 38], ['Étranger', 22], ['Nîmes', 14], ['Paris', 11], ['Marseille', 9], ['Lyon', 6]], ' %');
 document.getElementById('g-artistes').innerHTML = bars([['ANOTR', 2140], ['Mochakk', 1860], ['Black Coffee', 1720], ['Chris Stussy', 980], ['AMOR', 760]], '');
 
-// Sondage (base fictive + ton vote, mémorisé sur le téléphone)
+// Sondage (base fictive + ton vote, mémorisé sur le téléphone). « Autre » = l'artiste que le fan écrit lui-même.
 const POLL = [['Keinemusik', 412], ['Peggy Gou', 365], ['Solomun', 298], ['Retour de Mochakk', 240]];
+const POLL_OTHERS = [['Amelie Lens', 57], ['Fisher', 43], ['Âme', 31], ['Vintage Culture', 22]]; // propositions fictives des autres fans
+function pollGet() { try { return [localStorage.getItem('sunday-poll'), localStorage.getItem('sunday-poll-other')]; } catch { return [null, null]; } }
 function renderPoll() {
-  let vote; try { vote = localStorage.getItem('sunday-poll'); } catch {}
+  const [vote, other] = pollGet();
   const box = document.getElementById('poll');
-  if (vote == null) { box.innerHTML = POLL.map(([n], k) => `<button class="opt" data-k="${k}">${n}</button>`).join(''); return; }
+  if (vote == null) { box.innerHTML = POLL.map(([n], k) => `<button class="opt" data-k="${k}">${n}</button>`).join('') + `<button class="opt" data-k="other">Autre… (je propose un artiste)</button>`; return; }
   const rows = POLL.map(([n, v], k) => [n, v + (k == vote ? 1 : 0), k == vote]);
-  const tot = rows.reduce((a, r) => a + r[1], 0);
-  box.innerHTML = rows.map(([n, v, me]) => `<div class="hbar${me ? ' me' : ''}"><span>${me ? '✓ ' : ''}${n}</span><i style="width:${v / rows[0][1] * 100}%"></i><span>${Math.round(v / tot * 100)} %</span></div>`).join('') +
-    `<p class="note">${tot.toLocaleString('fr-FR')} votes · merci !</p>`;
+  if (vote === 'other') rows.push([esc(other || '') + ' (ta proposition)', 1, true]);
+  const tot = rows.reduce((a, r) => a + r[1], 0) + POLL_OTHERS.reduce((a, r) => a + r[1], 0);
+  box.innerHTML = rows.map(([n, v, me]) => `<div class="hbar${me ? ' me' : ''}"><span>${me ? '✓ ' : ''}${n}</span><i style="width:${v / rows[0][1] * 100}%"></i><span>${Math.max(1, Math.round(v / tot * 100))} %</span></div>`).join('') +
+    `<p class="note">${tot.toLocaleString('fr-FR')} votes · merci ! Ta réponse est transmise aux organisateurs.</p>`;
 }
-document.getElementById('poll').onclick = e => { const b = e.target.closest('.opt'); if (!b) return; try { localStorage.setItem('sunday-poll', b.dataset.k); } catch {} renderPoll(); };
-renderPoll();
+function renderOthers() {
+  const [vote, other] = pollGet();
+  const rows = vote === 'other' && other ? [[esc(other) + ' ← ce téléphone', 1], ...POLL_OTHERS] : POLL_OTHERS;
+  document.getElementById('g-autres').innerHTML = bars(rows, '') + '<p class="note">Exemple : en version officielle, chaque artiste écrit par un fan arrive ici.</p>';
+}
+document.getElementById('poll').onclick = e => {
+  const b = e.target.closest('.opt');
+  if (b && b.dataset.k === 'other') {
+    document.getElementById('poll').innerHTML = `<form class="other"><input id="poll-other" maxlength="40" placeholder="Quel artiste ?" required aria-label="Artiste proposé"><button class="btn sm">Voter</button></form>`;
+    document.getElementById('poll-other').focus(); return;
+  }
+  if (!b) return;
+  try { localStorage.setItem('sunday-poll', b.dataset.k); } catch {}
+  renderPoll(); renderOthers();
+};
+document.getElementById('poll').onsubmit = e => {
+  e.preventDefault();
+  const name = document.getElementById('poll-other').value.trim(); if (!name) return;
+  try { localStorage.setItem('sunday-poll', 'other'); localStorage.setItem('sunday-poll-other', name); } catch {}
+  renderPoll(); renderOthers();
+};
+renderPoll(); renderOthers();
 
 // Avis sur la dernière édition
 let note = 0;
@@ -984,6 +1010,7 @@ if (location.search.includes('test')) {
   console.assert(liveIndex(new Date(2026, 8, 13, 19, 30)) === 4, '19 h 30 → ANOTR');
   console.assert(liveIndex(new Date(2026, 8, 13, 22, 30)) === 5, '22 h 30 → dernier set');
   console.assert(liveIndex(new Date(2026, 8, 13, 23, 0)) === -1, '23 h → fini');
+  console.assert(document.querySelector('#poll [data-k=other]') || /ta proposition|%/.test(document.getElementById('poll').textContent), 'sondage : choix « Autre »');
   console.assert(TOUR.every(([t]) => document.getElementById(t)), 'Sunny : chaque étape pointe vers un onglet');
   console.log('selftest ok');
 }
