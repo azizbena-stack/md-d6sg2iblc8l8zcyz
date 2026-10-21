@@ -51,6 +51,7 @@ h2 em{font-weight:500;color:var(--orange)}
 .hero p{position:relative;z-index:1;font-family:var(--hand);font-weight:700;font-size:28px;line-height:1;margin-top:6px;transform:rotate(-2deg);text-align:center}
 .countdown{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:26px}
 .countdown div{background:rgba(255,250,241,.22);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:10px 4px;text-align:center}
+.countdown[hidden]{display:none}
 .countdown b{display:block;font:800 26px var(--serif)}
 .countdown span{font-size:10px;text-transform:uppercase;letter-spacing:.1em}
 .hero small{position:relative;z-index:1;display:block;margin-top:10px;text-align:center;font-size:12px;font-weight:600}
@@ -238,22 +239,22 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
   <div class="hero">
     <h1><img class="wordmark" src="logo-wordmark.webp" alt="Sunday Music"></h1>
     <p>Sunday is not a day off.</p>
-    <div class="countdown" id="cd"></div>
-    <small data-en="until Sunday, 1 pm">avant dimanche, 13 h</small>
+    <div class="countdown" id="cd" hidden></div>
+    <small id="cd-txt"></small>
   </div>
   <div class="stats">
-    <div class="card"><b>72,9 k</b><span data-en="followers">abonnés</span></div>
+    <div class="card"><b>72,8 k</b><span data-en="followers">abonnés</span></div>
     <div class="card"><b>15 000</b><span data-en="at the airport with ANOTR">à l'aéroport avec ANOTR</span></div>
-    <div class="card"><b>Sold out</b><span data-en="every edition">chaque édition</span></div>
+    <div class="card"><b>37</b><span data-en="dates on Shotgun since 2021">dates sur Shotgun depuis 2021</span></div>
   </div>
   <div class="card next">
     <div class="date" data-en="soon">bientôt</div>
     <div>
       <div class="kicker" data-en="Next edition">Prochaine édition</div>
-      <h3>Clos de Provence</h3>
-      <p data-en="Date and line-up coming soon. Presales open first to app members.">Date et line-up à venir. Les préventes ouvrent d'abord aux inscrits de l'app.</p>
-      <button class="stamp" id="presale" aria-pressed="false">🎫 Je me pré-inscris aux préventes</button>
-      <button class="stamp" id="waitlist" aria-pressed="false">⏳ Liste d'attente si c'est complet</button>
+      <h3 data-en="Not announced yet">Pas encore annoncée</h3>
+      <p data-en="No date on sale right now. Last one: Montpellier Airport, 13 Sept 2026. App members hear first.">Aucune date en vente pour l'instant. La dernière : l'Aéroport de Montpellier, le 13 septembre 2026. Les inscrits de l'app sont prévenus en premier.</p>
+      <button class="stamp" id="presale" aria-pressed="false">🔔 Me prévenir dès qu'une date sort</button>
+      <button class="stamp" id="waitlist" aria-pressed="false">🎫 Me prévenir des préventes</button>
     </div>
   </div>
   <div class="card poll" style="margin-bottom:16px">
@@ -272,7 +273,7 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
 
 <section id="editions">
   <div class="kicker" data-en="From the Eiffel Tower to the tarmac">De la Tour Eiffel au tarmac</div>
-  <h2 data-en="Our <em>Sundays</em>">Nos <em>dimanches</em></h2>
+  <h2 data-en="Our <em>editions</em>">Nos <em>éditions</em></h2>
   <div class="passport">
     <div class="kicker" data-en="My Sunday passport">Mon passeport Sunday</div>
     <div class="lvl" id="lvl"></div>
@@ -321,7 +322,7 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
     <div class="tk-main">
       <div class="kicker" data-en="My ticket · example">Mon billet · exemple</div>
       <h3>Aéroport de Montpellier</h3>
-      <p>Dim. 13 sept. 2026 · 13 h → 1 h</p>
+      <p>Dim. 13 sept. 2026 · 11 h → 23 h</p>
       <div class="tk-grid"><div><span>Pass</span><b>Journée</b></div><div><span>Entrée</span><b>Porte B</b></div><div><span>N°</span><b>004218</b></div></div>
     </div>
     <div class="tk-stub"><img src="qr-demo.svg" alt="QR code du billet (exemple)"><small>À montrer à l'entrée</small></div>
@@ -331,14 +332,14 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
     <button class="btn ghost sm" data-toast="Version officielle : transfert ou revente du billet à un ami, en toute sécurité.">Transférer à un ami</button>
   </div>
 
-  <div class="card meteo"><div class="ico" id="m-ico">🌤️</div><div><div class="kicker" id="m-day">Météo de dimanche</div><b id="m-temp">…</b><p id="m-tip">Montpellier · chargement…</p></div></div>
+  <div class="card meteo"><div class="ico" id="m-ico">🌤️</div><div><div class="kicker" id="m-day">Météo</div><b id="m-temp">…</b><p id="m-tip">Montpellier · chargement…</p></div></div>
 
   <div class="card live" style="margin-top:16px">
     <div class="kicker" data-en="Live schedule">Programme en direct</div>
     <div class="seg"><button class="chip on" data-mine="0" data-en="All">Tout</button><button class="chip" data-mine="1" data-en="★ My schedule">★ Mon programme</button></div>
     <div id="sets"></div>
     <button class="stamp" id="alerts" aria-pressed="false">🔔 Me prévenir 10 min avant mes artistes</button>
-    <p class="note">Touche ★ pour composer ton programme. Exemple avec le line-up de l'aéroport 2026, calé sur l'heure de ton téléphone.</p>
+    <p class="note">Touche ★ pour composer ton programme. Exemple : vrai line-up et vrais horaires d'ouverture de l'Aéroport 2026 (11 h → 23 h), heures de passage inventées, calé sur l'heure de ton téléphone.</p>
   </div>
 
   <h3 class="sub" data-en="Site map">Plan du site</h3>
@@ -389,7 +390,7 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
 
   <h3 class="sub" data-en="Practical info">Infos pratiques</h3>
   <div id="faq"></div>
-  <p class="note">Exemple : le gérant remplit ces infos depuis son espace.</p>
+  <p class="note">Infos du site officiel. Dans la version officielle, le gérant les met à jour depuis son espace.</p>
   <a class="card shop" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener"><span>🛍️</span><div><b>Boutique officielle</b><p>Le merch Sunday Music, à un clic.</p></div></a>
   <div class="card" style="margin-top:10px;background:linear-gradient(150deg,#fffaf1,#fbe3c7)">
     <div class="kicker" data-en="Partner contest · example">Jeu concours partenaire · exemple</div>
@@ -425,7 +426,7 @@ footer{text-align:center;color:var(--mute);font-size:11px;padding:26px 0 10px}
     <div class="kicker">Envoyer une notification</div>
     <label for="g-who" style="font-size:14px">Destinataires</label>
     <select id="g-who"><option value="8412">Tous les fans</option><option value="2140">Fans qui ont mis ★ ANOTR</option><option value="3196">Fans de Montpellier</option><option value="1054">Liste d'attente</option></select>
-    <textarea id="g-msg">Les préventes Clos de Provence ouvrent demain à 18 h, rien que pour vous 🌞</textarea>
+    <textarea id="g-msg">La prochaine date est annoncée demain à 18 h, rien que pour vous 🌞</textarea>
     <button class="btn sm" id="g-send">Envoyer à 8 412 fans</button>
   </div>
   <div class="card gcard">
@@ -500,31 +501,44 @@ const IG = 'https://www.instagram.com/';
 let en = false; // langue (bouton EN du bandeau)
 
 // Éditions, de la plus récente à la plus ancienne
-const EDITIONS = [
+const EDITIONS = [  // Shotgun (organisateur Sunday Music) + légendes Instagram, relevés le 21/10/2026
   {id:'airport26', post:'p/DdRqsyQDLav', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
-   text:'15 000 personnes sur le tarmac, de 13 h à 1 h. Le plus gros show de l\'année.',
-   who:['ANOTR','AMOR','Silvie Loto','ALCI','Soubeiran','Casa Mata']},
+   text:'15 000 personnes sur le tarmac, de 11 h à 23 h. After au Club Casita jusqu\'à 3 h.', who:['ANOTR','AMOR','Silvie Loto','ALCI','Casa Mata','Soubeiran','Tibo KSRG','Mathis Bouloc']},
   {id:'lunel26', post:'p/DafYP3FjNie', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
-   text:'Retour à la maison pour 12 h de show. Plus de 8 000 pré-inscrits.', who:['Mochakk','Soubeiran','Mathis Bouloc','Tibo KSRG','Solarce Brothers','Mamba Skar']},
+   text:'Mochakk dans les arènes de la ville de Sunday, de 13 h à 23 h. Déjà 8 000 inscrits fin avril.', who:['Mochakk','Soubeiran','Mathis Bouloc','Tibo KSRG','Solarce Brothers','Mamba Skar']},
   {id:'nimes26', post:'p/DYNN6ljDIyL', ico:'🎻', when:'8 mai 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
-   text:'Premier show orchestral de Black Coffee en Europe. 14 000 danseurs.', who:['Black Coffee']},
-  {id:'dune26', post:'reel/DUnLV0XDP35', ico:'🌞', when:'5 avr. 2026', title:'La Dune · 4ᵉ édition', place:'Club',
-   text:'Le club ouvert en pleine journée : club, patio et rooftop Terrazza.', who:['Claptone','Soubeiran','Tibo KSRG','Mathis Bouloc','Casa Mata']},
-  {id:'origins26', post:'p/DUlcmVzDKdA', ico:'🏠', when:'Début 2026', title:'Origins by Sunday', place:'Club',
-   text:'Retour aux soirées en petit comité des débuts. Sold out.', who:[]},
-  {id:'dec25', post:'p/DS2uA6mjLbv', ico:'❤️‍🔥', when:'Déc. 2025', title:'Dernier dimanche de 2025', place:'Club',
-   text:'La soirée de clôture d\'une année folle.', who:[]},
+   text:'Black Coffee en live avec orchestre, sold out : 14 000 danseurs.', who:['Black Coffee','Djeff','Soubeiran','Orsay','Terev']},
+  {id:'dune26', post:'reel/DUnLV0XDP35', ico:'🌞', when:'5 avr. 2026', title:'La Dune × Terrazza · 4ᵉ édition', place:'Club',
+   text:'Club, patio et rooftop Terrazza, de 11 h à minuit.', who:['Claptone','Soubeiran','Tibo KSRG','Mathis Bouloc','Casa Mata']},
+  {id:'origins26', post:'p/DUlcmVzDKdA', ico:'🏠', when:'8 févr. 2026', title:'Origins by Sunday · Clos de Provence', place:'Clos de Provence',
+   text:'Retour en petit comité, comme à nos débuts. Sold out.', who:['Soubeiran','Tibo KSRG','Mathis Bouloc','Franc Fala','Greg Herma','Benji Ben']},
+  {id:'dec25', post:'p/DS2uA6mjLbv', ico:'❤️‍🔥', when:'14 déc. 2025', title:'Clos de Provence 2025', place:'Clos de Provence',
+   text:'La dernière date de 2025.', who:['Jamback','Soubeiran','Tibo KSRG','Mathis Bouloc','Alauze','Black Accord']},
   {id:'airport25', post:'p/DOti-fTjOup', ico:'✈️', when:'14 sept. 2025', title:'Aéroport de Montpellier · 2ᵉ édition', place:'Aéroport',
-   text:'12 000 personnes, sold out. Tipi Stage et première scène AMOR.', who:['Chris Stussy','Prospa','AMOR','Matisa']},
-  {id:'dune25b', post:'', ico:'🌴', when:'13 juil. 2025', title:'La Dune · édition d\'été', place:'Club',
-   text:'Retour à La Dune en plein été.', who:['Ben Sterling']},
+   text:'12 000 personnes, sold out.', who:['Chris Stussy','Prospa','AMOR','Matisa','Soubeiran']},
+  {id:'beach25', post:'', ico:'🏖️', when:'20 juil. 2025', title:'Beach Edition · Port-Barcarès', place:'Plage',
+   text:'Les pieds dans le sable, à Ginette Plage.', who:['Paco Osuna','Soubeiran','Tibo KSRG','Mathis Bouloc']},
+  {id:'dune25b', post:'', ico:'🌴', when:'13 juil. 2025', title:'La Dune × Terrazza · édition d\'été', place:'Club',
+   text:'De 13 h à 2 h, en plein été.', who:['Ben Sterling','Peace Control','Adam Trigger','Soubeiran']},
   {id:'eiffel25', post:'reel/DRaE1VeDFRh', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
-   text:'Sunday Music prend le premier étage de la Tour Eiffel.', who:['Carlita']},
+   text:'Une nuit au premier étage de la Tour Eiffel.', who:['Carlita']},
+  {id:'boiler25', post:'', ico:'🎧', when:'17 mai 2025', title:'Boiler Room · Arènes de Lunel', place:'Arènes',
+   text:'« Père & Fils » : Benji Ben b2b Soubeiran.', who:['Benji Ben','Soubeiran','Thöm','Greg Herma']},
   {id:'dune25', post:'', ico:'🌞', when:'20 avr. 2025', title:'La Dune × Terrazza', place:'Club',
    text:'Club, rooftop et patio, de jour.', who:['Alex Wann','Cosmic Boys','Soubeiran','Tibo KSRG','Mathis Bouloc']},
-  {id:'airport24', post:'p/DB9RSIzIHTp', ico:'✈️', when:'2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
-   text:'La première sur le tarmac : plus de 9 000 personnes, sold out.', who:[]},
+  {id:'clos25feb', post:'', ico:'🍷', when:'16 févr. 2025', title:'Clos de Provence', place:'Clos de Provence',
+   text:'Un dimanche d\'hiver au Clos de Provence.', who:['Soubeiran','Toman','Mathis Bouloc','Tibo KSRG']},
+  {id:'airport24', post:'p/DB9RSIzIHTp', ico:'✈️', when:'15 sept. 2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
+   text:'La toute première à l\'aéroport.', who:['PAWSA','Cosmic Boys','Chicks Luv Us','Soubeiran']},
+  {id:'lunel24', post:'', ico:'🏟️', when:'7 juil. 2024', title:'Arènes de Lunel 2024', place:'Arènes',
+   text:'Le festival dans les arènes de Lunel.', who:[]},
+  {id:'dune24', post:'', ico:'🌞', when:'7 avr. 2024', title:'La Dune × Terrazza · 1ʳᵉ édition', place:'Club',
+   text:'La première à La Dune.', who:['Soubeiran','Mathis Bouloc','Tibo KSRG']},
 ];
+// Prochaine date : null tant que rien n'est annoncé (Shotgun : « aucun évènement à venir » le 21/10/2026).
+// Le jour où une date sort : {date: '2027-04-04T13:00', title: '…', url: 'lien Shotgun'} → compte à rebours + météo du jour J.
+const NEXT = null;
+const LAST = {date: '13 sept. 2026', title: 'Aéroport de Montpellier', note: '15 000 personnes'};
 
 const LEVELS = [[0,'Curieux·se','Coche les éditions où tu étais.'],[1,'Newcomer','Bienvenue dans la famille.'],
   [3,'Regular','Tu connais le chemin du dimanche.'],[5,'Sunday Family','Tu fais partie des murs.'],[8,'Légende','Tu as tout fait. Respect.']];
@@ -536,14 +550,14 @@ const ARTISTS = [
   {n:'Mochakk', ig:'mochakk', ed:'Lunel 2026', head:1},
   {n:'Chris Stussy', ig:'chrisstussydj', ed:'Aéroport 2025', head:1},
   {n:'Claptone', ed:'La Dune 2026', head:1},
-  {n:'Soubeiran', ig:'soubeiran00', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Soubeiran', ig:'soubeiran00', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · Nîmes 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Tibo KSRG', ig:'tibo_ksrg', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Mathis Bouloc', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Carlita', ig:'carlitamusic', ed:'Tour Eiffel 2025'},
   {n:'Prospa', ed:'Aéroport 2025'},
   {n:'Ben Sterling', ed:'La Dune 2025'},
   {n:'Alex Wann', ed:'La Dune 2025'},
-  {n:'Cosmic Boys', ed:'La Dune 2025'},
+  {n:'Cosmic Boys', ed:'La Dune 2025 · Aéroport 2024'},
   {n:'AMOR', ig:'this_is_amor', ed:'Aéroport 2026 · Aéroport 2025'},
   {n:'Silvie Loto', ig:'silvieloto', ed:'Aéroport 2026'},
   {n:'ALCI', ig:'alcimusiq', ed:'Aéroport 2026'},
@@ -587,12 +601,18 @@ const ARTISTS = [
   {n:'Hugo Brancato', ed:'La Dune 2025'},
   {n:'Lucas Villanova', ed:'La Dune 2025'},
   {n:'Hugo Cstln', ed:'La Dune 2025'},
-  {n:'PAWSA', ed:'Éditions précédentes'},
-  {n:'Francis Mercier', ed:'Éditions précédentes'},
-  {n:'Kölsch', ed:'Éditions précédentes'},
+  {n:'PAWSA', ed:'Aéroport 2024'},
+  {n:'Chicks Luv Us', ed:'Aéroport 2024'},
+  {n:'Djeff', ed:'Nîmes 2026'},
+  {n:'Orsay', ed:'Nîmes 2026'},
+  {n:'Terev', ed:'Nîmes 2026'},
+  {n:'Paco Osuna', ed:'Port-Barcarès 2025'},
+  {n:'Benji Ben', ed:'Lunel 2025 · Clos de Provence 2026'},
+  {n:'Francis Mercier', ed:'Montpellier 2023'},
+  {n:'Kölsch', ed:'Lunel 2023'},
   {n:'Nitefreak', ed:'Éditions précédentes'},
-  {n:'Franc Fala', ed:'Éditions précédentes'},
-  {n:'Ahmed Spins', ed:'Éditions précédentes'},
+  {n:'Franc Fala', ed:'Clos de Provence 2026'},
+  {n:'Ahmed Spins', ed:'Montpellier 2023'},
 ];
 
 // Posts Instagram (liens vérifiés le 11/10/2026)
@@ -654,19 +674,17 @@ function toast(msg) {
 }
 document.addEventListener('click', e => { const b = e.target.closest('[data-toast]'); if (b) toast(b.dataset.toast); });
 
-// Compte à rebours jusqu'au prochain dimanche 13 h
-function nextSunday(now) {
-  const d = new Date(now); d.setHours(13, 0, 0, 0);
-  d.setDate(d.getDate() + (7 - d.getDay()) % 7);
-  if (d <= now) d.setDate(d.getDate() + 7);
-  return d;
-}
+// Accueil : compte à rebours vers la prochaine date annoncée (NEXT), sinon la dernière édition
+const nextDate = NEXT && new Date(NEXT.date) > new Date() ? new Date(NEXT.date) : null;
+function cdParts(ms) { const s = Math.max(0, Math.floor(ms / 1000)); return [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60]; }
 function tick() {
-  let s = Math.floor((nextSunday(new Date()) - new Date()) / 1000);
-  const parts = [[Math.floor(s / 86400), en ? 'days' : 'jours'], [Math.floor(s % 86400 / 3600), en ? 'hours' : 'heures'], [Math.floor(s % 3600 / 60), 'min'], [s % 60, 'sec']];
-  document.getElementById('cd').innerHTML = parts.map(([v, l]) => `<div><b>${String(v).padStart(2, '0')}</b><span>${l}</span></div>`).join('');
+  const l = en ? ['days', 'hours', 'min', 'sec'] : ['jours', 'heures', 'min', 'sec'];
+  document.getElementById('cd').innerHTML = cdParts(nextDate - new Date()).map((v, k) => `<div><b>${String(v).padStart(2, '0')}</b><span>${l[k]}</span></div>`).join('');
 }
-tick(); setInterval(tick, 1000);
+if (nextDate) {
+  document.getElementById('cd').hidden = false; tick(); setInterval(tick, 1000);
+  document.getElementById('cd-txt').textContent = 'avant ' + NEXT.title + ' · ' + nextDate.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'});
+} else document.getElementById('cd-txt').textContent = `Prochaine date : bientôt annoncée · dernière : ${LAST.title}, ${LAST.date}`;
 
 // Passeport (stocké sur le téléphone uniquement)
 let been;
@@ -679,7 +697,7 @@ function renderPassport() {
   document.getElementById('lvlhint').textContent = lv[2] + (next ? ` Encore ${next[0] - n} pour devenir ${next[1]}.` : '');
   const mine = EDITIONS.filter(e => been.has(e.id));
   document.getElementById('souv').innerHTML = mine.length
-    ? `<p style="font:700 22px var(--hand);color:#22305a">Tu as vécu ${mine.length} dimanche${mine.length > 1 ? 's' : ''} avec nous.</p>` +
+    ? `<p style="font:700 22px var(--hand);color:#22305a">Tu as vécu ${mine.length} édition${mine.length > 1 ? 's' : ''} avec nous.</p>` +
       mine.map(e => `<a href="${IG}sundaymusic.ofc/${e.post ? e.post + '/' : ''}" target="_blank" rel="noopener"><span>${e.ico} ${esc(e.title)}</span><span>📸 ↗</span></a>`).join('')
     : '<p class="note">Coche « J\'y étais » sur tes éditions : tes souvenirs apparaîtront ici.</p>';
 }
@@ -733,9 +751,9 @@ addEventListener('resize', fitSquares);
 document.getElementById('places').onclick = ev => { const b = ev.target.closest('.chip'); if (b) { place = b.dataset.p; renderFeed(); } };
 renderFeed();
 
-// Jour J : programme en direct (exemple : aéroport 2026, de 13 h à 1 h)
-const SETS = [['13:00','Soubeiran'],['15:00','ALCI'],['17:00','Silvie Loto'],['19:00','AMOR'],['21:00','ANOTR'],['23:00','Casa Mata']];
-const START = 13 * 60, END = 25 * 60; // 1 h du matin = 25 h
+// Jour J : programme en direct (exemple : line-up de l'Aéroport 2026, ouvert de 11 h à 23 h d'après Shotgun ; heures de passage inventées)
+const SETS = [['11:00','Soubeiran'],['13:00','ALCI'],['15:00','Silvie Loto'],['17:00','AMOR'],['19:00','ANOTR'],['21:00','Casa Mata']];
+const START = 11 * 60, END = 23 * 60;
 function liveIndex(d) {
   let m = d.getHours() * 60 + d.getMinutes();
   if (m < 6 * 60) m += 24 * 60; // après minuit
@@ -774,7 +792,7 @@ const PLACES = {
   bar2: '🍔 Food court : 6 stands, dont végétarien.',
   eau: '💧 Point d\'eau gratuit. Gourdes autorisées (vides à l\'entrée).',
   wc: '🚻 Toilettes, accessibles PMR.',
-  secours: '⛑️ Poste de secours, près de l\'entrée. Ouvert de 13 h à la fin.',
+  secours: '⛑️ Poste de secours, près de l\'entrée. Ouvert pendant tout l\'évènement.',
   vestiaire: '🧥 Vestiaire, juste après l\'entrée. 3 € l\'article.',
   navettes: '🚌 Départ des navettes vers Montpellier centre.',
 };
@@ -819,10 +837,11 @@ document.getElementById('stars').onclick = e => { const b = e.target.closest('bu
 document.getElementById('avis-send').onclick = () => toast(note ? `Merci pour ton ${note}/5 ! L'équipe lit tous les avis.` : 'Choisis d\'abord une note ★');
 renderStars();
 
-// Météo du prochain dimanche à Montpellier (Open-Meteo, gratuit, sans clé)
+// Météo à Montpellier (Open-Meteo, gratuit, sans clé) : le jour de la prochaine date si elle est annoncée, sinon aujourd'hui
 function wIcon(c) { return c === 0 ? '☀️' : c <= 3 ? '⛅' : c <= 48 ? '🌫️' : c <= 67 ? '🌧️' : c <= 77 ? '❄️' : c <= 82 ? '🌦️' : '⛈️'; }
 (async () => {
-  const d = nextSunday(new Date()).toLocaleDateString('sv-SE');
+  const d = (nextDate || new Date()).toLocaleDateString('sv-SE');
+  document.getElementById('m-day').textContent = nextDate ? 'Météo du jour J' : 'Météo aujourd\'hui';
   try {
     const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=43.58&longitude=3.96&daily=weather_code,temperature_2m_max,uv_index_max&timezone=Europe%2FParis&start_date=${d}&end_date=${d}`);
     const w = (await r.json()).daily;
@@ -856,12 +875,12 @@ document.getElementById('lang').onclick = () => {
   document.querySelectorAll('[data-en]').forEach(el => { el.dataset.fr ??= el.innerHTML; el.innerHTML = en ? el.dataset.en : el.dataset.fr; });
 };
 
-const FAQ = [
-  ['🕐 Horaires', 'Ouverture des portes à 13 h, fin du show à 1 h.'],
-  ['🚌 Accès et navettes', 'Navettes depuis le centre-ville et parking sur réservation : les détails sont envoyés aux inscrits.'],
-  ['🚫 Objets interdits', 'Bouteilles en verre, objets coupants, drones et gros sacs.'],
-  ['💳 Paiement', 'Carte bancaire acceptée partout sur le site.'],
-  ['🧥 Vestiaire', 'Vestiaire disponible à l\'entrée.'],
+const FAQ = [  // site officiel sundaymusic.events (FAQ) et Shotgun, relevés le 21/10/2026
+  ['🕐 Horaires', 'Ils changent à chaque date et sont donnés sur Shotgun. Aéroport 2026 : 11 h → 23 h, puis after au Club Casita jusqu\'à 3 h.'],
+  ['🎫 Billets', 'Uniquement sur Shotgun ou via la rubrique « Événements » du site officiel.'],
+  ['🔞 Âge', '18 ans et plus, ou plus de 16 ans accompagné·e d\'un majeur responsable.'],
+  ['🚌 Accès', 'Les infos d\'accès sont publiées avec chaque date.'],
+  ['✉️ Bénévoles, partenaires', 'contact@astra-production.com'],
 ];
 document.getElementById('faq').innerHTML = FAQ.map(([q, a]) => `<details><summary>${q}</summary><p>${esc(a)}</p></details>`).join('');
 
@@ -873,8 +892,8 @@ function toggle(id, key, off, on) {
   b.onclick = () => { v = !v; try { localStorage.setItem(key, v ? '1' : '0'); } catch {} show(); };
   show();
 }
-toggle('presale', 'sunday-presale', '🎫 Je me pré-inscris aux préventes', '✓ Pré-inscrit·e : tu seras prévenu·e en premier');
-toggle('waitlist', 'sunday-waitlist', '⏳ Liste d\'attente si c\'est complet', '✓ Sur liste d\'attente : prévenu·e si une place se libère');
+toggle('presale', 'sunday-presale', '🔔 Me prévenir dès qu\'une date sort', '✓ Inscrit·e : tu seras prévenu·e en premier');
+toggle('waitlist', 'sunday-waitlist', '🎫 Me prévenir des préventes', '✓ Tu seras prévenu·e à l\'ouverture des préventes');
 toggle('contest', 'sunday-contest', 'Je participe', '✓ Tu participes, tirage à 20 h');
 toggle('alerts', 'sunday-alerts', '🔔 Me prévenir 10 min avant mes artistes', '✓ Alertes activées pour ton programme');
 
@@ -908,13 +927,13 @@ document.getElementById('me-reset').onclick = () => {
 // si la vidéo manque, le texte est lu par la voix du téléphone.
 // ponytail: textes écrits à l'avance ; une vraie IA qui répond aux questions demande un petit serveur avec une clé API
 const TOUR = [
-  ['home', "Coucou ! Moi c'est Sunny. Je vais te faire faire le tour de l'app Sunday Music, ça prend deux minutes. Alors ici, c'est l'accueil : t'as le compte à rebours jusqu'à dimanche, 13 heures… les préventes… et tous les liens Sunday, au même endroit."],
+  ['home', "Coucou ! Moi c'est Sunny. Je vais te faire faire le tour de l'app Sunday Music, ça prend deux minutes. Alors ici, c'est l'accueil : t'as la prochaine date, avec un compte à rebours dès qu'elle est annoncée… les alertes… et tous les liens Sunday, au même endroit."],
   ['editions', "Là, ce sont les éditions. La Tour Eiffel, l'aéroport, les arènes… Tu coches celles où t'étais, et hop, ton passeport Sunday monte de niveau. Franchement, c'est addictif."],
   ['lineup', "Le line-up ! Tous les artistes qui sont passés chez Sunday. Tu cliques sur un nom, ça t'ouvre direct son Instagram."],
   ['moments', "Et ça, c'est mon onglet préféré : les moments. Les vraies photos, les vraies vidéos… comme une pellicule. Ça donne envie d'y retourner, non ?"],
   ['infos', "Le jour J, l'app devient ton meilleur pote. Le programme en direct, ton billet, le plan du site, la météo… et même les navettes pour rentrer."],
   ['moi', "Ici, c'est ton espace. Ton niveau, tes artistes favoris, tes réglages. Et tout reste sur ton téléphone, promis."],
-  ['gerant', "Et pour finir, côté organisateurs : un tableau de bord, des notifications ciblées, le fichier des fans. Voilà, t'as tout vu ! On se retrouve dimanche ?"],
+  ['gerant', "Et pour finir, côté organisateurs : un tableau de bord, des notifications ciblées, le fichier des fans. Voilà, t'as tout vu ! On se retrouve à la prochaine ?"],
 ];
 let sunI = 0, sunVoice = true;
 const sunEl = id => document.getElementById(id);
@@ -955,15 +974,15 @@ window.speechSynthesis?.getVoices(); // charge la liste des voix à l'avance
 
 // Auto-test : ?test dans l'URL
 if (location.search.includes('test')) {
-  const sat = new Date(2026, 9, 10, 20), sunAm = new Date(2026, 9, 11, 9), sunPm = new Date(2026, 9, 11, 14);
-  console.assert(nextSunday(sat).getDate() === 11, 'samedi → demain');
-  console.assert(nextSunday(sunAm).getDate() === 11, 'dimanche matin → aujourd\'hui');
-  console.assert(nextSunday(sunPm).getDate() === 18, 'dimanche après 13 h → semaine suivante');
-  console.assert(liveIndex(new Date(2026, 8, 13, 12, 0)) === -1, 'avant 13 h → pas de set');
-  console.assert(liveIndex(new Date(2026, 8, 13, 13, 0)) === 0, '13 h → premier set');
-  console.assert(liveIndex(new Date(2026, 8, 13, 22, 30)) === 4, '22 h 30 → ANOTR');
-  console.assert(liveIndex(new Date(2026, 8, 14, 0, 30)) === 5, 'minuit et demi → dernier set');
-  console.assert(liveIndex(new Date(2026, 8, 14, 1, 0)) === -1, '1 h → fini');
+  console.assert(cdParts(90061000).join() === '1,1,1,1' && cdParts(-5).join() === '0,0,0,0', 'compte à rebours');
+  console.assert(NEXT ? !document.getElementById('cd').hidden : document.getElementById('cd').hidden && /bientôt annoncée/.test(document.getElementById('cd-txt').textContent), 'pas de compte à rebours sans date annoncée');
+  console.assert(!/Clos de Provence/.test(document.querySelector('#home .next').textContent), 'plus de fausse prochaine édition');
+  console.assert(EDITIONS.length === 16 && new Set(EDITIONS.map(e => e.id)).size === 16, 'éditions');
+  console.assert(liveIndex(new Date(2026, 8, 13, 10, 0)) === -1, 'avant 11 h → pas de set');
+  console.assert(liveIndex(new Date(2026, 8, 13, 11, 0)) === 0, '11 h → premier set');
+  console.assert(liveIndex(new Date(2026, 8, 13, 19, 30)) === 4, '19 h 30 → ANOTR');
+  console.assert(liveIndex(new Date(2026, 8, 13, 22, 30)) === 5, '22 h 30 → dernier set');
+  console.assert(liveIndex(new Date(2026, 8, 13, 23, 0)) === -1, '23 h → fini');
   console.assert(TOUR.every(([t]) => document.getElementById(t)), 'Sunny : chaque étape pointe vers un onglet');
   console.log('selftest ok');
 }
