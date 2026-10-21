@@ -10,13 +10,13 @@
 <link rel="apple-touch-icon" href="logo.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500;1,9..144,800&family=Manrope:wght@400;600;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   /* DA reprise du feed @sundaymusic.ofc : photo argentique, golden hour, sable, ciel, bois des scènes, nuits bleues */
   --bg:#f4ecdf; --card:#fffaf1; --ink:#1d1814; --mute:#7a6a5c; --line:#e3d5c1;
   --sun:#f3b259; --orange:#e2672f; --terra:#a5583a; --sky:#8fb9d8; --wood:#5e4130; --night:#151a2a;
-  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --hand:'Caveat',cursive;
+  --serif:'Anton',Impact,sans-serif; --sans:'Inter',system-ui,sans-serif; --hand:'Anton',Impact,sans-serif; /* polices du site officiel sundaymusic.events */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);padding-bottom:calc(84px + env(safe-area-inset-bottom))}
@@ -29,8 +29,9 @@ main{max-width:560px;margin:0 auto;padding:0 16px}
 section{display:none;padding-top:20px}
 section.on{display:block;animation:rise .35s ease}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-h1,h2,h3{font-family:var(--serif);font-weight:800;line-height:1.05}
-h2{font-size:34px;margin:2px 0 14px;letter-spacing:-.01em}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1;letter-spacing:.01em;text-transform:uppercase}
+body{font-synthesis:none}
+h2{font-size:34px;margin:2px 0 14px}
 h2 em{font-weight:500;color:var(--orange)}
 .kicker{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
 .hand{font-family:var(--hand);font-weight:700}
@@ -48,7 +49,7 @@ h2 em{font-weight:500;color:var(--orange)}
 /* logo officiel (sundaymusic.events), blanc sur fond transparent */
 .hero h1{position:relative;z-index:1;margin:6px -4px 0}
 .hero .wordmark{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(20,40,80,.35));margin-bottom:10px}
-.hero p{position:relative;z-index:1;font-family:var(--hand);font-weight:700;font-size:28px;line-height:1;margin-top:6px;transform:rotate(-2deg);text-align:center}
+.hero p{position:relative;z-index:1;font-family:var(--hand);font-weight:700;font-size:28px;line-height:1;margin-top:6px;text-transform:uppercase;text-align:center}
 .countdown{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:26px}
 .countdown div{background:rgba(255,250,241,.22);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:10px 4px;text-align:center}
 .countdown[hidden]{display:none}
